@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="DELETE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>global.md_glideajax1</api_name>
+        <caller_access/>
+        <client_callable>true</client_callable>
+        <description/>
+        <mobile_callable>false</mobile_callable>
+        <name>md_glideajax1</name>
+        <sandbox_callable>true</sandbox_callable>
+        <script><![CDATA[var md_glideajax1 = Class.create();
+md_glideajax1.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+    countInc: function () {
+        var prb_id = this.getParameter('sysparm_num');
+        var countofinc = 123456;
+        // var grI = new GlideAggregate('incident');
+        // grI.addAggregate('COUNT');
+        // grI.addEncodedQuery('problem.number=' + prb_id);
+        // grI.query();
+        // while (grI.next) {
+        //     countofinc = grI.getAggregate('COUNT');
+        // }
+        return countofinc;
+    },
+
+    type: 'md_glideajax1',
+});
+]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-03-03 00:20:53</sys_created_on>
+        <sys_id>4a8f5a2d834422102ec555a6feaad3cd</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>md_glideajax1</sys_name>
+        <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
+        <sys_update_name>sys_script_include_4a8f5a2d834422102ec555a6feaad3cd</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-03-03 00:35:44</sys_updated_on>
+    </sys_script_include>
+    <sys_es_latest_script action="DELETE">
+        <id>4a8f5a2d834422102ec555a6feaad3cd</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-03-03 00:20:53</sys_created_on>
+        <sys_id>4630ee2d834422102ec555a6feaad39a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-03-03 00:20:53</sys_updated_on>
+        <table>sys_script_include</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="abccompany">a6dad6e5834422102ec555a6feaad362</application>
+        <file_path/>
+        <instance_id>0151daafdbfdb19002d9172913961974</instance_id>
+        <instance_name>dev187924</instance_name>
+        <name>sys_script_include_4a8f5a2d834422102ec555a6feaad3cd</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_script_include"&gt;&lt;sys_script_include action="INSERT_OR_UPDATE"&gt;&lt;access&gt;package_private&lt;/access&gt;&lt;active&gt;true&lt;/active&gt;&lt;api_name&gt;global.md_glideajax1&lt;/api_name&gt;&lt;caller_access/&gt;&lt;client_callable&gt;true&lt;/client_callable&gt;&lt;description/&gt;&lt;mobile_callable&gt;false&lt;/mobile_callable&gt;&lt;name&gt;md_glideajax1&lt;/name&gt;&lt;sandbox_callable&gt;true&lt;/sandbox_callable&gt;&lt;script&gt;&lt;![CDATA[var md_glideajax1 = Class.create();
+md_glideajax1.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+    countInc: function () {
+        var prb_id = this.getParameter('sysparm_num');
+        var countofinc = 123456;
+        // var grI = new GlideAggregate('incident');
+        // grI.addAggregate('COUNT');
+        // grI.addEncodedQuery('problem.number=' + prb_id);
+        // grI.query();
+        // while (grI.next) {
+        //     countofinc = grI.getAggregate('COUNT');
+        // }
+        return countofinc;
+    },
+
+    type: 'md_glideajax1',
+});
+]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_include&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-03-03 00:20:53&lt;/sys_created_on&gt;&lt;sys_id&gt;4a8f5a2d834422102ec555a6feaad3cd&lt;/sys_id&gt;&lt;sys_mod_count&gt;3&lt;/sys_mod_count&gt;&lt;sys_name&gt;md_glideajax1&lt;/sys_name&gt;&lt;sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362"&gt;a6dad6e5834422102ec555a6feaad362&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="abccompany"&gt;a6dad6e5834422102ec555a6feaad362&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_include_4a8f5a2d834422102ec555a6feaad3cd&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-03-03 00:35:44&lt;/sys_updated_on&gt;&lt;/sys_script_include&gt;&lt;sys_es_latest_script action="INSERT_OR_UPDATE"&gt;&lt;id&gt;4a8f5a2d834422102ec555a6feaad3cd&lt;/id&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-03-03 00:20:53&lt;/sys_created_on&gt;&lt;sys_id&gt;4630ee2d834422102ec555a6feaad39a&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-03-03 00:20:53&lt;/sys_updated_on&gt;&lt;table&gt;sys_script_include&lt;/table&gt;&lt;use_es_latest&gt;true&lt;/use_es_latest&gt;&lt;/sys_es_latest_script&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>690747957</payload_hash>
+        <record_name>md_glideajax1</record_name>
+        <reverted_from/>
+        <source>f0e313acdc9212104f34465061b06a08</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-03-03 00:35:44</sys_created_on>
+        <sys_id>e79322e1838422102ec555a6feaad332</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>195596e1f460000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-03-03 00:35:44</sys_updated_on>
+        <type>Script Include</type>
+        <update_guid>5f9322e16384221049d28da94c3c8831</update_guid>
+        <update_guid_history>5f9322e16384221049d28da94c3c8831:690747957,83c2ea212c8422107f3f088a7234e4b7:2004151108,b942ea61f1842210065b3b0d78827b3e:-602325252,da30ae6d0f442210b915e1be457dafd0:-402909735</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-03-03 11:12:37</sys_created_on>
+        <sys_db_object display_value="" name="sys_script_include">sys_script_include</sys_db_object>
+        <sys_id>3506a2dd50164163b9e14f8dde4870a1</sys_id>
+        <sys_metadata>4a8f5a2d834422102ec555a6feaad3cd</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>md_glideajax1</sys_name>
+        <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
+        <sys_scope_delete display_value="">10b6b3dc0ed6473c813abb45191b0f90</sys_scope_delete>
+        <sys_update_name>sys_script_include_4a8f5a2d834422102ec555a6feaad3cd</sys_update_name>
+        <sys_update_version display_value="sys_script_include_4a8f5a2d834422102ec555a6feaad3cd">e79322e1838422102ec555a6feaad332</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-03-03 11:12:37</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

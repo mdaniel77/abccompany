@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description/>
+        <field/>
+        <global>true</global>
+        <isolate_script>false</isolate_script>
+        <messages/>
+        <name>mdcsechofromserver2</name>
+        <order/>
+        <script><![CDATA[function onLoad() {
+    var problemNumber = g_form.getValue('problem.number');
+    var ga = new GlideAjax('Mdssechofromserver');
+    ga.addParam('sysparm_name', 'echoParameter');
+    ga.addParam('sysparm_num', problemNumber);
+
+    ga.getXMLAnswer(function(answer) {
+        g_form.addInfoMessage(
+            'Problem number echo using getXMLAnsver passing callBack function as parameter: ' + answer);
+
+    });
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-03-09 23:02:52</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>32905eb3834022102ec555a6feaad3ab</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>mdcsechofromserver2</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
+        <sys_update_name>sys_script_client_32905eb3834022102ec555a6feaad3ab</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-03-09 23:06:07</sys_updated_on>
+        <table>problem</table>
+        <type>onLoad</type>
+        <ui_type>10</ui_type>
+        <view/>
+    </sys_script_client>
+</record_update>
