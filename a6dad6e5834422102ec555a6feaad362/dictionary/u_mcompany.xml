@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="3ca2d68e83d022102ec555a6feaad30e" label="mcompany" max_length="40" name="u_mcompany" type="collection">
+        <element display="true" label="Name" max_length="40" name="u_name" type="string"/>
+        <element label="Contact email" max_length="40" name="u_contact_email" type="string"/>
+        <element label="Contact" max_length="40" name="u_contact" type="string"/>
+        <element label="Location" max_length="40" name="u_location" read_only="true" type="string"/>
+    </element>
+</database>

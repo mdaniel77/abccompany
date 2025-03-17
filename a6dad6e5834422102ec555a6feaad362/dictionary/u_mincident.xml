@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="d2559e42831422102ec555a6feaad3e2" label="mincident" max_length="40" name="u_mincident" type="collection">
+        <element label="Select any location:" max_length="40" name="u_select_any_location" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Location 2" sequence="1" value="location_2"/>
+                <element inactive_on_update="false" label="Location 1" sequence="0" value="location_1"/>
+                <element inactive_on_update="false" label="Location 3" sequence="2" value="location_3"/>
+            </choice>
+        </element>
+        <element label="Reporter" max_length="40" name="u_reporter" type="string"/>
+        <element label="Select a region:" max_length="40" name="u_select_a_region" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Region 2" sequence="1" value="region_2"/>
+                <element inactive_on_update="false" label="Region 3" sequence="2" value="region_3"/>
+                <element inactive_on_update="false" label="Region 1" sequence="0" value="region_1"/>
+            </choice>
+        </element>
+        <element label="Rule(s) to add/change/remove" max_length="40" name="u_rule_s_to_add_change_remove" type="string"/>
+        <element label="Rule expiration date" max_length="40" name="u_rule_expiration_date" type="glide_date"/>
+        <element label="What would you like to do?" max_length="40" name="u_what_would_you_like_to_do" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Remove Firewall rule(s)" sequence="1" value="remove_firewall_rule_s"/>
+                <element inactive_on_update="false" label="Add Firewall rule(s)" sequence="2" value="add_firewall_rule_s"/>
+                <element inactive_on_update="false" label="Change Firewall rule(s)" sequence="0" value="change_firewall_rule_s"/>
+            </choice>
+        </element>
+        <element label="Appliction description" max_length="40" name="u_appliction_description" type="string"/>
+    </element>
+</database>
