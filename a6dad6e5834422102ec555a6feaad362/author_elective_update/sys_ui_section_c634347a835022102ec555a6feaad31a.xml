@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_section action="DELETE" caption="u_mreportinguser" section_id="c634347a835022102ec555a6feaad31a" sys_domain="global" table="u_mreportinguser" version="3" view="mreportingv1">
+        <sys_ui_section action="DELETE">
+            <caption>u_mreportinguser</caption>
+            <header>false</header>
+            <name>u_mreportinguser</name>
+            <roles/>
+            <sys_class_name>sys_ui_section</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-18 23:57:07</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>c634347a835022102ec555a6feaad31a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>u_mreportinguser</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
+            <sys_update_name>sys_ui_section_c634347a835022102ec555a6feaad31a</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-18 23:57:07</sys_updated_on>
+            <sys_user/>
+            <title>false</title>
+            <view display_value="mreportingv1" name="mreportingv1">8234347a835022102ec555a6feaad315</view>
+            <view_name/>
+        </sys_ui_section>
+    </sys_ui_section>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="abccompany">a6dad6e5834422102ec555a6feaad362</application>
+        <file_path/>
+        <instance_id>0151daafdbfdb19002d9172913961974</instance_id>
+        <instance_name>dev187924</instance_name>
+        <name>sys_ui_section_c634347a835022102ec555a6feaad31a</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update><sys_ui_section caption="u_mreportinguser" section_id="c634347a835022102ec555a6feaad31a" sys_domain="global" table="u_mreportinguser" version="3" view="mreportingv1"><sys_ui_section action="INSERT_OR_UPDATE"><caption>u_mreportinguser</caption><header>false</header><name>u_mreportinguser</name><roles/><sys_class_name>sys_ui_section</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-03-18 23:57:07</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>c634347a835022102ec555a6feaad31a</sys_id><sys_mod_count>0</sys_mod_count><sys_name>u_mreportinguser</sys_name><sys_overrides/><sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package><sys_policy/><sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope><sys_update_name>sys_ui_section_c634347a835022102ec555a6feaad31a</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-03-18 23:57:07</sys_updated_on><sys_user/><title>false</title><view display_value="mreportingv1" name="mreportingv1">8234347a835022102ec555a6feaad315</view><view_name/></sys_ui_section></sys_ui_section></record_update>]]></payload>
+        <payload_hash>-2093409697</payload_hash>
+        <record_name>mreportinguser</record_name>
+        <reverted_from/>
+        <source>5f942ebb838022102ec555a6feaad333</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-03-18 23:57:07</sys_created_on>
+        <sys_id>4e34347a835022102ec555a6feaad31d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>195abb086950000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-03-18 23:57:07</sys_updated_on>
+        <type>Form Layout</type>
+        <update_guid>c234347a0d5022108aaa35f59723b71d</update_guid>
+        <update_guid_history>c234347a0d5022108aaa35f59723b71d:-2093409697</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-03-25 23:39:50</sys_created_on>
+        <sys_db_object display_value="" name="sys_ui_section">sys_ui_section</sys_db_object>
+        <sys_id>460b9b16f63140d2ae721f8bb03c5c84</sys_id>
+        <sys_metadata>c634347a835022102ec555a6feaad31a</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>u_mreportinguser</sys_name>
+        <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
+        <sys_parent display_value="Mreportinguser">e95356ce83d022102ec555a6feaad367</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
+        <sys_scope_delete display_value="">10b6b3dc0ed6473c813abb45191b0f90</sys_scope_delete>
+        <sys_update_name>sys_ui_section_c634347a835022102ec555a6feaad31a</sys_update_name>
+        <sys_update_version display_value="sys_ui_section_c634347a835022102ec555a6feaad31a">4e34347a835022102ec555a6feaad31d</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-03-25 23:39:50</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

@@ -3,7 +3,7 @@
         <active>true</active>
         <applies_extended>false</applies_extended>
         <condition/>
-        <description>Get the opened Problem's number and display it in InfoMessage</description>
+        <description>Get the problem number from the form and display it in a InfoMessage.</description>
         <field>number</field>
         <global>true</global>
         <isolate_script>false</isolate_script>
@@ -22,7 +22,7 @@ function onLoad() {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>15267cfd830062102ec555a6feaad339</sys_id>
-        <sys_mod_count>13</sys_mod_count>
+        <sys_mod_count>14</sys_mod_count>
         <sys_name>mdcsecho</sys_name>
         <sys_overrides/>
         <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
@@ -30,7 +30,7 @@ function onLoad() {
         <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
         <sys_update_name>sys_script_client_15267cfd830062102ec555a6feaad339</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-03-17 21:25:03</sys_updated_on>
+        <sys_updated_on>2025-03-26 00:17:59</sys_updated_on>
         <table>problem</table>
         <type>onLoad</type>
         <ui_type>0</ui_type>

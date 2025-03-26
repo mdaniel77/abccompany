@@ -5,22 +5,22 @@
         <api_name>global.mdssgetlocation</api_name>
         <caller_access/>
         <client_callable>true</client_callable>
-        <description/>
+        <description>Based on company name returns the company location to the calling client script.</description>
         <mobile_callable>false</mobile_callable>
         <name>mdssgetlocation</name>
         <sandbox_callable>false</sandbox_callable>
         <script><![CDATA[var mdssgetlocation = Class.create();
 mdssgetlocation.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
     getLocation: function() {
-		var mcaller = "*****";
-        var mfirstreportedbytask = this.getParameter('sysparm_num');
-        var mincident = new GlideRecord('incident');
-        mincident.addQuery('number', mfirstreportedbytask);
-		mincident.query();
-        if (mincident.next()) {
-            mcaller = mincident.getValue('state');
+		var mlocation = "*****";
+        var mname = this.getParameter('sysparm_num');
+        var mcompany = new GlideRecord('u_mcompany');
+        mcompany.addQuery('u_name', mname);
+		mcompany.query();
+        if (mcompany.next()) {
+            mlocation = mcompany.getValue('u_location');
         }
-        return mcaller;
+        return mlocation;
     },
 
     type: 'mdssgetlocation'
@@ -29,14 +29,14 @@ mdssgetlocation.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2025-03-18 23:33:26</sys_created_on>
         <sys_id>dc5ba0be831022102ec555a6feaad3de</sys_id>
-        <sys_mod_count>15</sys_mod_count>
+        <sys_mod_count>18</sys_mod_count>
         <sys_name>mdssgetlocation</sys_name>
         <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
         <sys_policy/>
         <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
         <sys_update_name>sys_script_include_dc5ba0be831022102ec555a6feaad3de</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-03-25 00:33:52</sys_updated_on>
+        <sys_updated_on>2025-03-26 00:13:37</sys_updated_on>
     </sys_script_include>
     <sys_es_latest_script action="INSERT_OR_UPDATE">
         <id>dc5ba0be831022102ec555a6feaad3de</id>

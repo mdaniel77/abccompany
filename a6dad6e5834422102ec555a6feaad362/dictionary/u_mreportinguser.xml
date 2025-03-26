@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="e95356ce83d022102ec555a6feaad367" label="mreportinguser" max_length="40" name="u_mreportinguser" type="collection">
+        <element label="Location" max_length="40" name="u_location" type="string"/>
         <element attributes="encode_utf8=false" display="true" label="Company" max_length="32" name="u_name" reference="u_mcompany" type="reference"/>
-        <element attributes="encode_utf8=false" label="Company location" max_length="32" name="u_location" reference="u_mcompany" type="reference"/>
         <element label="Reporting user" max_length="40" name="u_reporting_user" type="string"/>
         <index name="index">
-            <element name="u_location"/>
-        </index>
-        <index name="index2">
             <element name="u_name"/>
         </index>
     </element>

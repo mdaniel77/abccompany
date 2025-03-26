@@ -3,7 +3,7 @@
         <active>false</active>
         <applies_extended>false</applies_extended>
         <condition/>
-        <description>Return the calling parameter from the server</description>
+        <description>Returns the calling parameter of server side script.</description>
         <field>number</field>
         <global>true</global>
         <isolate_script>false</isolate_script>
@@ -32,7 +32,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>008e7c35834062102ec555a6feaad3d0</sys_id>
-        <sys_mod_count>47</sys_mod_count>
+        <sys_mod_count>48</sys_mod_count>
         <sys_name>mdcsechofromserver</sys_name>
         <sys_overrides/>
         <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
@@ -40,7 +40,7 @@
         <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
         <sys_update_name>sys_script_client_008e7c35834062102ec555a6feaad3d0</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-03-16 23:49:07</sys_updated_on>
+        <sys_updated_on>2025-03-26 00:20:35</sys_updated_on>
         <table>problem</table>
         <type>onLoad</type>
         <ui_type>10</ui_type>
