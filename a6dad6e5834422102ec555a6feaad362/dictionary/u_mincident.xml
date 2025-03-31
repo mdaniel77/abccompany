@@ -15,7 +15,14 @@
                 <element inactive_on_update="false" label="Region 1" sequence="0" value="region_1"/>
             </choice>
         </element>
-        <element label="Rule(s) to add/change/remove" max_length="40" name="u_rule_s_to_add_change_remove" type="string"/>
+        <element choice="1" label="Rule(s) to add/change/remove" max_length="40" name="u_rule_s_to_add_change_remove" type="string">
+            <choice>
+                <element inactive_on_update="false" label="Modify" sequence="1" value="modify"/>
+                <element inactive_on_update="false" label="Delete" sequence="2" value="delete"/>
+                <element inactive_on_update="false" label="Add" sequence="0" value="add"/>
+            </choice>
+        </element>
+        <element label="Rule data" max_length="40" name="u_rule_data" type="string"/>
         <element label="Rule expiration date" max_length="40" name="u_rule_expiration_date" type="glide_date"/>
         <element label="What would you like to do?" max_length="40" name="u_what_would_you_like_to_do" type="choice">
             <choice>

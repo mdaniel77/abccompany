@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_section caption="Main section" section_id="87692082832422102ec555a6feaad3a0" sys_domain="global" table="u_mincident" version="3" view="">
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>u_reporter</element>
+            <position>0</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-29 01:30:14</sys_created_on>
+            <sys_id>a7696082832422102ec555a6feaad301</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Main section" display_value="Main section" name="u_mincident" sys_domain="global" view="Default view">87692082832422102ec555a6feaad3a0</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-29 01:30:14</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>u_select_a_region</element>
+            <position>1</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-29 01:30:14</sys_created_on>
+            <sys_id>2f696082832422102ec555a6feaad301</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Main section" display_value="Main section" name="u_mincident" sys_domain="global" view="Default view">87692082832422102ec555a6feaad3a0</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-29 01:30:14</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.split</element>
+            <position>2</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-29 01:30:14</sys_created_on>
+            <sys_id>a3696082832422102ec555a6feaad302</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Main section" display_value="Main section" name="u_mincident" sys_domain="global" view="Default view">87692082832422102ec555a6feaad3a0</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-29 01:30:14</sys_updated_on>
+            <sys_user/>
+            <type>.split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>u_rule_expiration_date</element>
+            <position>3</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-29 01:30:14</sys_created_on>
+            <sys_id>2b696082832422102ec555a6feaad302</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Main section" display_value="Main section" name="u_mincident" sys_domain="global" view="Default view">87692082832422102ec555a6feaad3a0</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-29 01:30:14</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>u_select_any_location</element>
+            <position>4</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-29 01:30:14</sys_created_on>
+            <sys_id>af696082832422102ec555a6feaad302</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Main section" display_value="Main section" name="u_mincident" sys_domain="global" view="Default view">87692082832422102ec555a6feaad3a0</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-29 01:30:14</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_section action="INSERT_OR_UPDATE">
+            <caption>Main section</caption>
+            <header>false</header>
+            <name>u_mincident</name>
+            <roles/>
+            <sys_class_name>sys_ui_section</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-29 01:30:13</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>87692082832422102ec555a6feaad3a0</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>u_mincident</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
+            <sys_update_name>sys_ui_section_87692082832422102ec555a6feaad3a0</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-29 01:30:13</sys_updated_on>
+            <sys_user/>
+            <title>false</title>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_section>
+    </sys_ui_section>
+</record_update>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="DELETE">
+        <active>true</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description>If  user's email address changed confirmation needed.</description>
+        <field>email</field>
+        <global>true</global>
+        <isolate_script>false</isolate_script>
+        <messages/>
+        <name>mduserupdateconfirmation</name>
+        <order/>
+        <script><![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+    // Create a modal instance
+    var modal = new GlideModal('custom_modal');
+    modal.setTitle('Custom Form');
+
+    // Define the content of the modal
+    var content = '<div>' +
+        '<label for="field1">Field 1:</label><br>' +
+        '<input type="text" id="field1" name="field1"><br><br>' +
+        '<label for="field2">Field 2:</label><br>' +
+        '<textarea id="field2" name="field2"></textarea><br><br>' +
+        '<button id="submitBtn">Submit</button>' +
+        '</div>';
+
+    modal.setBody(content, false, false);
+    modal.render();
+
+    // Add JavaScript event listener for the submit button
+    // document.getElementById('submitBtn').addEventListener('click', function() {
+    //     var field1Value = document.getElementById('field1').value;
+    //     var field2Value = document.getElementById('field2').value;
+
+    //     // Perform some action with the values
+    //     alert('Field 1: ' + field1Value + '\nField 2: ' + field2Value);
+
+    //     // Close the modal
+    //     modal.destroy();
+    // });
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-03-28 23:51:14</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>4e1e040283a022102ec555a6feaad3a8</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name>mduserupdateconfirmation</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
+        <sys_update_name>sys_script_client_4e1e040283a022102ec555a6feaad3a8</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-03-29 00:30:50</sys_updated_on>
+        <table>sys_user</table>
+        <type>onChange</type>
+        <ui_type>0</ui_type>
+        <view/>
+    </sys_script_client>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="abccompany">a6dad6e5834422102ec555a6feaad362</application>
+        <file_path/>
+        <instance_id>0151daafdbfdb19002d9172913961974</instance_id>
+        <instance_name>dev187924</instance_name>
+        <name>sys_script_client_4e1e040283a022102ec555a6feaad3a8</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="global" table="sys_script_client"&gt;&lt;sys_script_client action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;applies_extended&gt;false&lt;/applies_extended&gt;&lt;condition/&gt;&lt;description&gt;If  user's email address changed confirmation needed.&lt;/description&gt;&lt;field&gt;email&lt;/field&gt;&lt;global&gt;true&lt;/global&gt;&lt;isolate_script&gt;false&lt;/isolate_script&gt;&lt;messages/&gt;&lt;name&gt;mduserupdateconfirmation&lt;/name&gt;&lt;order/&gt;&lt;script&gt;&lt;![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+    // Create a modal instance
+    var modal = new GlideModal('custom_modal');
+    modal.setTitle('Custom Form');
+
+    // Define the content of the modal
+    var content = '&lt;div&gt;' +
+        '&lt;label for="field1"&gt;Field 1:&lt;/label&gt;&lt;br&gt;' +
+        '&lt;input type="text" id="field1" name="field1"&gt;&lt;br&gt;&lt;br&gt;' +
+        '&lt;label for="field2"&gt;Field 2:&lt;/label&gt;&lt;br&gt;' +
+        '&lt;textarea id="field2" name="field2"&gt;&lt;/textarea&gt;&lt;br&gt;&lt;br&gt;' +
+        '&lt;button id="submitBtn"&gt;Submit&lt;/button&gt;' +
+        '&lt;/div&gt;';
+
+    modal.setBody(content, false, false);
+    modal.render();
+
+    // Add JavaScript event listener for the submit button
+    // document.getElementById('submitBtn').addEventListener('click', function() {
+    //     var field1Value = document.getElementById('field1').value;
+    //     var field2Value = document.getElementById('field2').value;
+
+    //     // Perform some action with the values
+    //     alert('Field 1: ' + field1Value + '\nField 2: ' + field2Value);
+
+    //     // Close the modal
+    //     modal.destroy();
+    // });
+}]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_client&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-03-28 23:51:14&lt;/sys_created_on&gt;&lt;sys_domain&gt;global&lt;/sys_domain&gt;&lt;sys_domain_path&gt;/&lt;/sys_domain_path&gt;&lt;sys_id&gt;4e1e040283a022102ec555a6feaad3a8&lt;/sys_id&gt;&lt;sys_mod_count&gt;7&lt;/sys_mod_count&gt;&lt;sys_name&gt;mduserupdateconfirmation&lt;/sys_name&gt;&lt;sys_overrides/&gt;&lt;sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362"&gt;a6dad6e5834422102ec555a6feaad362&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="abccompany"&gt;a6dad6e5834422102ec555a6feaad362&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_client_4e1e040283a022102ec555a6feaad3a8&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-03-29 00:30:50&lt;/sys_updated_on&gt;&lt;table&gt;sys_user&lt;/table&gt;&lt;type&gt;onChange&lt;/type&gt;&lt;ui_type&gt;0&lt;/ui_type&gt;&lt;view/&gt;&lt;/sys_script_client&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>1447798520</payload_hash>
+        <record_name>mduserupdateconfirmation</record_name>
+        <reverted_from/>
+        <source>5f942ebb838022102ec555a6feaad333</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-03-29 00:30:50</sys_created_on>
+        <sys_id>11db9cce83a022102ec555a6feaad3ae</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>195df4efcde0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-03-29 00:30:50</sys_updated_on>
+        <type>Client Script</type>
+        <update_guid>95db9cce24a022105ca4aeb1820b33ad</update_guid>
+        <update_guid_history>95db9cce24a022105ca4aeb1820b33ad:1447798520,a8cb188ea3a02210d75b59070d5977df:818122032,c2da104eb3a0221039873577ae9acf28:135456440,f6ba9c8a82a022100c1fe81e3971094b:-1708166733,1eb8dc0ec4a0221016b5fb7c1cb15f7d:912335818,2d2854c670a022102a7723bfbf90e0be:-1506775078,9ba45486eaa02210a445611fcd13d414:-293982640,5dc2dc4ae560221069943eabad1af6eb:-2102200669</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-03-29 00:34:42</sys_created_on>
+        <sys_db_object display_value="" name="sys_script_client">sys_script_client</sys_db_object>
+        <sys_id>214893b662a74fa284a66b070d8aa284</sys_id>
+        <sys_metadata>4e1e040283a022102ec555a6feaad3a8</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>mduserupdateconfirmation</sys_name>
+        <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
+        <sys_parent display_value="Sys User">e17fcb20dc1212104f34465061b06a84</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
+        <sys_scope_delete display_value="">10b6b3dc0ed6473c813abb45191b0f90</sys_scope_delete>
+        <sys_update_name>sys_script_client_4e1e040283a022102ec555a6feaad3a8</sys_update_name>
+        <sys_update_version display_value="sys_script_client_4e1e040283a022102ec555a6feaad3a8">11db9cce83a022102ec555a6feaad3ae</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-03-29 00:34:42</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
