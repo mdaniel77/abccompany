@@ -4,13 +4,13 @@
             <element>u_rule_s_to_add_change_remove</element>
             <position>0</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-03-29 01:40:00</sys_created_on>
-            <sys_id>62abec06832422102ec555a6feaad33f</sys_id>
+            <sys_created_on>2025-04-05 22:26:41</sys_created_on>
+            <sys_id>742c8dec833022102ec555a6feaad373</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Firewall section" display_value="Firewall section" name="u_mincident" sys_domain="global" view="Default view">43692082832422102ec555a6feaad3a2</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-03-29 01:40:00</sys_updated_on>
+            <sys_updated_on>2025-04-05 22:26:41</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -18,27 +18,13 @@
             <element>u_rule_data</element>
             <position>1</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-03-29 01:40:00</sys_created_on>
-            <sys_id>e6abec06832422102ec555a6feaad33f</sys_id>
+            <sys_created_on>2025-04-05 22:26:41</sys_created_on>
+            <sys_id>7c2c8dec833022102ec555a6feaad373</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Firewall section" display_value="Firewall section" name="u_mincident" sys_domain="global" view="Default view">43692082832422102ec555a6feaad3a2</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-03-29 01:40:00</sys_updated_on>
-            <sys_user/>
-            <type/>
-        </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>u_ruldata_2</element>
-            <position>2</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-03-29 01:40:00</sys_created_on>
-            <sys_id>6eabec06832422102ec555a6feaad33f</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="Firewall section" display_value="Firewall section" name="u_mincident" sys_domain="global" view="Default view">43692082832422102ec555a6feaad3a2</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-03-29 01:40:00</sys_updated_on>
+            <sys_updated_on>2025-04-05 22:26:41</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>

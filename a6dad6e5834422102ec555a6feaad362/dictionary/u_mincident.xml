@@ -8,6 +8,7 @@
             </choice>
         </element>
         <element label="Reporter" max_length="40" name="u_reporter" type="string"/>
+        <element label="Rule data" max_length="300" name="u_rule_data" read_only="true" type="html"/>
         <element label="Select a region:" max_length="40" name="u_select_a_region" type="choice">
             <choice>
                 <element inactive_on_update="false" label="Region 2" sequence="1" value="region_2"/>
@@ -22,7 +23,6 @@
                 <element inactive_on_update="false" label="Add" sequence="0" value="add"/>
             </choice>
         </element>
-        <element label="Rule data" max_length="40" name="u_rule_data" type="string"/>
         <element label="Rule expiration date" max_length="40" name="u_rule_expiration_date" type="glide_date"/>
         <element label="What would you like to do?" max_length="40" name="u_what_would_you_like_to_do" type="choice">
             <choice>
