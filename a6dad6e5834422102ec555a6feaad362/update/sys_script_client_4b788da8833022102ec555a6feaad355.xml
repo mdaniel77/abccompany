@@ -17,7 +17,7 @@
 
     //Type appropriate comment here, and begin script below
     mfunction = g_form.getValue('u_mincident.u_rule_s_to_add_change_remove');
-    g_form.setValue('u_mincident.u_rule_data.form-control', ' result');
+    g_form.setValue('u_mincident.u_rule_data.form-control', 'result');
 
     showCustomModal(myCallback);
 }
@@ -28,65 +28,163 @@ function myCallback(result) {
 
 function showCustomModal(xCallback) {
     var modal = new GlideModal('custom_modal');
-    modal.setTitle('Enter Your Data');
+    modal.setTitle('Enter firewall rules');
+    modal.setWidth(900);
 
     // Define the HTML content with an input field
-    modal.renderWithContent('<div style="padding: 20px;">' +
-        '<input type="text" id="srcz" style="width:40%; margin-bottom:10px;" />' +
-        '<input type="text" id="srcip" style="width:40%; margin-bottom:10px;" />' +
-        '<input type="text" id="dstz" style="width:40%; margin-bottom:10px;" />' +
-        '<input type="text" id="dstip" style="width:40%; margin-bottom:10px;" />' +
+    var mdHTML = '<div id="mdfwdiv" style="width:800px">' +
+        '<table id="md_table_1" style="width:800px;margin-bottom:25px;">' +
+        '<tr>' +
+        '<td>' +
+        '<input id="addRowBtn" type="text" value="New" style="width:100px;border:1px solid black;padding:4px;text-align: left;' +
+        ' background-color:#2da44c;color:white;onclick="addRow(this);"></td>' +
+        '</tr>' +
+        '<tr style="width:800px;">' +
+        '<th style="width:95px;border:1px solid black;padding:4px;text-align:left;">Src. zone</th>' +
+        '<th style="width:95px;border:1px solid black;padding:4px;text-align:left;">Src. zone</th>' +
+        '<th style="width:80px;border:1px solid black;padding:4px;text-align:left;">Sel</th>' +
+        '<th style="width:120px;border:1px solid black;padding:4px;text-align:left;">Src. IP/Netmask/FQDN</th>' +
+        '<th style="width:95px;border:1px solid black;padding:4px;text-align:left;">Dest. zone</th>' +
+        '<th style="width:95px;border:1px solid black;padding:4px;text-align:left;">Dest. zone</th>' +
+        '<th style="width:80px;border:1px solid black;padding:4px;text-align:left;">Sel</th>' +
+        '<th style="width:120px;border:1px solid black;padding:4px;text-align:left;">Dst. IP/Netmask/FQDN</th>' +
+        '</tr>' +
+        '<tr style="width:800px;">' +
+        '<td><input type="text" style="width:95px;border:1px solid black;padding:4px;text-align: left;" value="Szone1A"></td>' +
+        '<td><input type="text" style="width:95px;border:1px solid black;padding:4px;text-align: left;" value="Szone1B"></td>' +
+        '<td>' +
+        '<select id="srcopt" style="width:81px;padding:4px;text-align: left;">' +
+        '<option value="IP">IP</option>' +
+        '<option value="Netmask">Netmask</option>' +
+        '<option value="FQDN">FQDN</option>' +
+        '</select></td>' +
+        '<td><input type="text" style="width:129px;border:1px solid black;padding:4px;text-align: left;" value="192.168.1.1"></td>' +
+        '<td><input type="text" style="width:95px;border:1px solid black;padding:4px;text-align: left;" value="Dzone1A"></td>' +
+        '<td><input type="text" style="width:95px;border:1px solid black;padding:4px;text-align: left;" value="Dzone1B"></td>' +
+        '<td style="">' +
+        '<select id="srcopt" style="width:81px;padding:4px;text-align:left;">' +
+        '<option value="IP">IP</option>' +
+        '<option value="Netmask">Netmask</option>' +
+        '<option value="FQDN">FQDN</option>' +
+        '</select></td>' +
+        '<td><input type="text" style="width:129px;border:1px solid black;padding:4px;text-align:left;" value="192.168.1.2"></td>' +
+        '</tr>' +
+        '</table>' +
+        '<input id="removeRowsWithXBtn" type="text" value="Delete selected" onclick="removeRowsWithX();"' +
+        ' style="width:100px;border:1px solid black;padding:4px;background-color:#FF0000;color: white;">' +
+        '<table id="md_table_2" style="width:800px;margin-bottom:25px;">' +
+        '<tr>' +
+        '<th style="width:100px;border:1px solid black;padding:4px;text-align:left;">Sel</th>' +
+        '<th style="width:100px;border:1px solid black;padding:4px;text-align:left;">Src. zone</th>' +
+        '<th style="width:100px;border:1px solid black;padding:4px;text-align:left;">Src. zone</th>' +
+        '<th style="width:75px;border:1px solid black;padding:4px;text-align:left;">Sel</th>' +
+        '<th style="width:100px;border:1px solid black;padding:4px;text-align:left;">Src. IP/Netmask/FQDN</th>' +
+        '<th style="width:100px;border:1px solid black;padding:4px;text-align:left;">Dest. zone</th>' +
+        '<th style="width:100px;border:1px solid black;padding:4px;text-align:left;">Dest. zone</th>' +
+        '<th style="width:75px;border:1px solid black;padding:4px;text-align:left;">Sel</th>' +
+        '<th style="width:100px;border:1px solid black;padding:4px;text-align:left;">Dst. IP/Netmask/FQDN</th>' +
+        '</tr>' +
+        '<tr>' +
+        '<td style="border:1px solid black;padding:4px;text-align:left;">' +
+        '<input type="checkbox"></td>' +
+        '<td style="width:100px;border:1px solid black;padding:4px;text-align:left;">S zone 1</td>' +
+        '<td style="width:100px;border:1px solid black;padding:4px;text-align:left;">S zone 2</td>' +
+        '<td style="width:75px;border:1px solid black;padding:4px;text-align:left;">IP</td>' +
+        '<td style="width:100px;border:1px solid black;padding:4px;text-align:left;">192.168.1.2</td>' +
+        '<td style="width:100px;border:1px solid black;padding:4px;text-align:left;">D zone 1</td>' +
+        '<td style="width:100px;border:1px solid black;padding:4px;text-align:left;">D zone 2</td>' +
+        '<td style="width:75px;border:1px solid black;padding:4px;text-align:left;">IP</td>' +
+        '<td style="width:100px;border:1px solid black;padding:4px;text-align:left;">192.168.1.4</td>' +
+        '</tr>' +
+        '</table>' +
         '<button id="submitBtn">Submit</button>' +
-        '</div>');
+        '</div>';
+
+    modal.renderWithContent(mdHTML);
 
     // Add a click listener to the Submit button to send data back
     setTimeout(function() {
+        console.log('in setTimeout');
         var submitButton = document.getElementById('submitBtn');
+        var table1 = document.getElementById('md_table_1');
+        var table2 = document.getElementById('md_table_2');
         if (submitButton) {
             submitButton.onclick = function() {
-                var srcz = document.getElementById('srcz').value;
-                var srcip = document.getElementById('srcip').value;
-                var dstz = document.getElementById('dstz').value;
-                var dstip = document.getElementById('dstip').value;
-                var userInput =
-                    '<table id="md_table_2" style="width:100%;">' +
-                    '<tr>' +
-                    '<th style="border: 1px solid black;padding: 4px;text-align: left;">Sel</th>' +
-                    '<th style="border: 1px solid black;padding: 4px;text-align: left;">Src. zone</th>' +
-                    '<th style="border: 1px solid black;padding: 4px;text-align: left;">Src. zone</th>' +
-                    '<th style="border: 1px solid black;padding: 4px;text-align: left;">Sel</th>' +
-                    '<th style="border: 1px solid black;padding: 4px;text-align: left;">Src. IP/Netmask/FQDN</th>' +
-                    '<th style="border: 1px solid black;padding: 4px;text-align: left;">Dest. zone</th>' +
-                    '<th style="border: 1px solid black;padding: 4px;text-align: left;">Dest. zone</th>' +
-                    '<th style="border: 1px solid black;padding: 4px;text-align: left;">Sel</th>' +
-                    '<th style="border: 1px solid black;padding: 4px;text-align: left;">Dst. IP/Netmask/FQDN</th>' +
-                    '</tr>' +
-                    '<tr>' +
-                    '<td style="border: 1px solid black;padding: 4px;text-align: left;">S zone 1</td>' +
-                    '<td style="border: 1px solid black;padding: 4px;text-align: left;">S zone 2</td>' +
-                    '<td style="border: 1px solid black;padding: 4px;text-align: left;">IP</td>' +
-                    '<td style="border: 1px solid black;padding: 4px;text-align: left;">192.168.1.2</td>' +
-                    '<td style="border: 1px solid black;padding: 4px;text-align: left;">D zone 1</td>' +
-                    '<td style="border: 1px solid black;padding: 4px;text-align: left;">D zone 2</td>' +
-                    '<td style="border: 1px solid black;padding: 4px;text-align: left;">IP</td>' +
-                    '<td style="border: 1px solid black;padding: 4px;text-align: left;">192.168.1.4</td>' +
-                    '</tr>' +
-                    '<tr>' +
-                    '<td style="border: 1px solid black;padding: 4px;text-align: left;">S zone 1</td>' +
-                    '<td style="border: 1px solid black;padding: 4px;text-align: left;">S zone 2</td>' +
-                    '<td style="border: 1px solid black;padding: 4px;text-align: left;">IP</td>' +
-                    '<td style="border: 1px solid black;padding: 4px;text-align: left;">192.168.1.3</td>' +
-                    '<td style="border: 1px solid black;padding: 4px;text-align: left;">D zone 1</td>' +
-                    '<td style="border: 1px solid black;padding: 4px;text-align: left;">D zone 2</td>' +
-                    '<td style="border: 1px solid black;padding: 4px;text-align: left;">IP</td>' +
-                    '<td style="border: 1px solid black;padding: 4px;text-align: left;">192.168.1.5</td>' +
-                    '</tr>' +
-                    '</table>';
+                console.log('sumitted');
+                var userInput = table2.outerHTML;
                 xCallback(userInput);
                 modal.close();
             };
         }
+        var addRowButton = document.getElementById("addRowBtn");
+        if (addRowButton) {
+            addRowButton.onclick = function() {
+                // Get the table element
+                console.log('in addRow');
+                // Get the first row
+                var firstRow = table1.rows[2]; // Assuming the first row is at index 2
+                // Get all cells from the first row
+                var table1_cells = firstRow.cells;
+                // Create a new row
+                var newRow = table2.insertRow(-1); // Insert at the end of the table
+                // Insert new cells in the row
+                for (let i = 0; i < 9; i++) {
+                    const newCell = newRow.insertCell(i);
+                    if (i === 0) {
+                        // Add a checkbox to the first cell
+                        newCell.innerHTML = '<input type="checkbox">';
+                        newCell.style.border = '1px solid black';
+                        newCell.style.padding = '4px';
+                        newCell.style.textAlign = 'left';
+                    } else {
+                        // Check if the cell contains an input element
+                        if (table1_cells[i - 1].querySelector('input')) {
+                            const inputElement = table1_cells[i - 1].querySelector('input');
+                            newCell.innerHTML = inputElement.value;
+                            newCell.style.width = 'width: 100px;';
+                            newCell.style.border = '1px solid black';
+                            newCell.style.padding = '4px';
+                            newCell.style.textAlign = 'left';
+                        } else if (table1_cells[i - 1].querySelector('select')) {
+                            const selectElement = table1_cells[i - 1].querySelector('select');
+                            newCell.innerHTML = selectElement.value;
+                            newCell.style.width = 'width: 70px;';
+                            newCell.style.border = '1px solid black';
+                            newCell.style.padding = '4px';
+                            newCell.style.textAlign = 'left';
+                        } else {
+                            newCell.innerHTML = table1_cells[i - 1].innerHTML;
+                            newCell.style.width = 'width: 100px;';
+                            newCell.style.border = '1px solid black';
+                            newCell.style.padding = '4px';
+                            newCell.style.textAlign = 'left';
+                        }
+                    }
+
+                }
+            };
+        }
+        var removeRowsWithXButton = document.getElementById("removeRowsWithXBtn");
+        if (removeRowsWithXButton) {
+            removeRowsWithXButton.onclick = function() {
+                console.log('in removeRowsWithX');
+                // Get the table
+                var table = document.getElementById('md_table_2');
+                console.log(table);
+                // Loop through the rows in reverse order (to avoid index shifting when removing rows)
+                for (let i = table.rows.length - 1; i > 0; i--) {
+                    var firstCell = table.rows[i].cells[0];
+                    var checkbox = firstCell.querySelector('input[type="checkbox"]');
+                    if (checkbox && checkbox.checked) {
+                        table.deleteRow(i); // Remove the row if the checkbox is checked
+                    }
+                }
+            }
+        }
+
+
     }, 500);
+
 }]]></script>
         <sys_class_name>sys_script_client</sys_class_name>
         <sys_created_by>admin</sys_created_by>
@@ -94,7 +192,7 @@ function showCustomModal(xCallback) {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>4b788da8833022102ec555a6feaad355</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>30</sys_mod_count>
         <sys_name>mdfirewallmanager</sys_name>
         <sys_overrides/>
         <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
@@ -102,7 +200,7 @@ function showCustomModal(xCallback) {
         <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
         <sys_update_name>sys_script_client_4b788da8833022102ec555a6feaad355</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-04-05 22:49:31</sys_updated_on>
+        <sys_updated_on>2025-04-06 23:40:20</sys_updated_on>
         <table>u_mincident</table>
         <type>onChange</type>
         <ui_type>0</ui_type>
