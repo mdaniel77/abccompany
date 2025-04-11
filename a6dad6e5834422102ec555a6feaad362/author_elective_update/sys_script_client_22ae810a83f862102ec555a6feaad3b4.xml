@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="DELETE">
+        <active>true</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description>Creates an empty firewall table with header row.</description>
+        <field/>
+        <global>true</global>
+        <isolate_script>false</isolate_script>
+        <messages/>
+        <name>mdfirewallhandler</name>
+        <order/>
+        <script><![CDATA[function onLoad() {
+   //Type appropriate comment here, and begin script below
+    // var mfunction = g_form.getValue('u_mincident.u_rule_s_to_add_change_remove');
+    var mdtable0 = document.getElementById("md_table_0");
+	if (mdtable0 !== null) {
+		alert("is Not Null");
+		return;
+	}
+	alert("Is Null");
+	var mdHTML =  '<table id="md_table_0" style="width:800px;margin-bottom:25px;">' +
+        '<tr style="background-color: #f3f3f3">' +
+        '<th style="width:95px;border:1px solid black;padding:4px;text-align:left;">Source zone</th>' +
+        '<th style="width:80px;border:1px solid black;padding:4px;text-align:left;">Select</th>' +
+        '<th style="width:120px;border:1px solid black;padding:4px;text-align:left;">Src. IP/Netmask/FQDN</th>' +
+        '<th style="width:95px;border:1px solid black;padding:4px;text-align:left;">Destination zone</th>' +
+        '<th style="width:80px;border:1px solid black;padding:4px;text-align:left;">Select</th>' +
+        '<th style="width:120px;border:1px solid black;padding:4px;text-align:left;">Dst. IP/Netmask/FQDN</th>' +
+        '</tr>' +
+        '</table>' +
+    g_form.setValue('u_rule_data', mdHTML);
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-10 14:48:21</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>22ae810a83f862102ec555a6feaad3b4</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>mdfirewallhandler</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
+        <sys_update_name>sys_script_client_22ae810a83f862102ec555a6feaad3b4</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-10 15:06:18</sys_updated_on>
+        <table>u_mincident</table>
+        <type>onLoad</type>
+        <ui_type>0</ui_type>
+        <view/>
+    </sys_script_client>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="abccompany">a6dad6e5834422102ec555a6feaad362</application>
+        <file_path/>
+        <instance_id>0151daafdbfdb19002d9172913961974</instance_id>
+        <instance_name>dev187924</instance_name>
+        <name>sys_script_client_22ae810a83f862102ec555a6feaad3b4</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="global" table="sys_script_client"&gt;&lt;sys_script_client action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;applies_extended&gt;false&lt;/applies_extended&gt;&lt;condition/&gt;&lt;description&gt;Creates an empty firewall table with header row.&lt;/description&gt;&lt;field/&gt;&lt;global&gt;true&lt;/global&gt;&lt;isolate_script&gt;false&lt;/isolate_script&gt;&lt;messages/&gt;&lt;name&gt;mdfirewallhandler&lt;/name&gt;&lt;order/&gt;&lt;script&gt;&lt;![CDATA[function onLoad() {
+   //Type appropriate comment here, and begin script below
+    // var mfunction = g_form.getValue('u_mincident.u_rule_s_to_add_change_remove');
+    var mdtable0 = document.getElementById("md_table_0");
+	if (mdtable0 !== null) {
+		alert("is Not Null");
+		return;
+	}
+	alert("Is Null");
+	var mdHTML =  '&lt;table id="md_table_0" style="width:800px;margin-bottom:25px;"&gt;' +
+        '&lt;tr style="background-color: #f3f3f3"&gt;' +
+        '&lt;th style="width:95px;border:1px solid black;padding:4px;text-align:left;"&gt;Source zone&lt;/th&gt;' +
+        '&lt;th style="width:80px;border:1px solid black;padding:4px;text-align:left;"&gt;Select&lt;/th&gt;' +
+        '&lt;th style="width:120px;border:1px solid black;padding:4px;text-align:left;"&gt;Src. IP/Netmask/FQDN&lt;/th&gt;' +
+        '&lt;th style="width:95px;border:1px solid black;padding:4px;text-align:left;"&gt;Destination zone&lt;/th&gt;' +
+        '&lt;th style="width:80px;border:1px solid black;padding:4px;text-align:left;"&gt;Select&lt;/th&gt;' +
+        '&lt;th style="width:120px;border:1px solid black;padding:4px;text-align:left;"&gt;Dst. IP/Netmask/FQDN&lt;/th&gt;' +
+        '&lt;/tr&gt;' +
+        '&lt;/table&gt;' +
+    g_form.setValue('u_rule_data', mdHTML);
+}]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_client&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-04-10 14:48:21&lt;/sys_created_on&gt;&lt;sys_domain&gt;global&lt;/sys_domain&gt;&lt;sys_domain_path&gt;/&lt;/sys_domain_path&gt;&lt;sys_id&gt;22ae810a83f862102ec555a6feaad3b4&lt;/sys_id&gt;&lt;sys_mod_count&gt;5&lt;/sys_mod_count&gt;&lt;sys_name&gt;mdfirewallhandler&lt;/sys_name&gt;&lt;sys_overrides/&gt;&lt;sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362"&gt;a6dad6e5834422102ec555a6feaad362&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="abccompany"&gt;a6dad6e5834422102ec555a6feaad362&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_client_22ae810a83f862102ec555a6feaad3b4&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-04-10 15:06:18&lt;/sys_updated_on&gt;&lt;table&gt;u_mincident&lt;/table&gt;&lt;type&gt;onLoad&lt;/type&gt;&lt;ui_type&gt;0&lt;/ui_type&gt;&lt;view/&gt;&lt;/sys_script_client&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-637388412</payload_hash>
+        <record_name>mdfirewallhandler</record_name>
+        <reverted_from/>
+        <source>5f942ebb838022102ec555a6feaad333</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-10 15:06:18</sys_created_on>
+        <sys_id>a2471942833c62102ec555a6feaad38a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>196203ccf880000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-10 15:06:18</sys_updated_on>
+        <type>Client Script</type>
+        <update_guid>2a471942e83c62104c3962eb7165e889</update_guid>
+        <update_guid_history>2a471942e83c62104c3962eb7165e889:-637388412,2ad595022d3c621012c97ebf535e0d6a:573254763,4d551102e83c6210b9b03fccce9354e9:-1792787635,67c4d98e5bf86210d5767be6b0a7be21:699773762,f2f3d54e17f86210aad00c8973d25d45:-1249360213,6323954e71f862104d0bbb76a36ce3f0:1481852076</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-10 15:10:29</sys_created_on>
+        <sys_db_object display_value="" name="sys_script_client">sys_script_client</sys_db_object>
+        <sys_id>3216eb0a70b94e8d8c11dce9dfc49429</sys_id>
+        <sys_metadata>22ae810a83f862102ec555a6feaad3b4</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>mdfirewallhandler</sys_name>
+        <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
+        <sys_parent display_value="mincident">d2559e42831422102ec555a6feaad3e2</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
+        <sys_scope_delete display_value="">10b6b3dc0ed6473c813abb45191b0f90</sys_scope_delete>
+        <sys_update_name>sys_script_client_22ae810a83f862102ec555a6feaad3b4</sys_update_name>
+        <sys_update_version display_value="sys_script_client_22ae810a83f862102ec555a6feaad3b4">a2471942833c62102ec555a6feaad38a</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-10 15:10:29</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

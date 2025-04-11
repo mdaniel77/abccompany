@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="DELETE">
+        <active>true</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description>Add / Remove firewall rules to mincident</description>
+        <field>u_rule_s_to_add_change_remove</field>
+        <global>true</global>
+        <isolate_script>false</isolate_script>
+        <messages/>
+        <name>mdfirewallmanager</name>
+        <order/>
+        <script><![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+    if (isLoading || newValue === '') {
+        return;
+    }
+
+    //Type appropriate comment here, and begin script below
+    // var mfunction = g_form.getValue('u_mincident.u_rule_s_to_add_change_remove');
+    var mdtable = document.getElementById("md_table_2");
+	console.log("Cs: " + mdtable);
+	// Get data rows from the table to insert into pop up md-table_2 after header row
+	// var rowsToMove = [];
+	// if (mdtable) {
+	// 	console.log(mdtable.rows.length);
+	// 	for (i = 0; i < mdtable.rows.length; i++) {
+	// 		if (i=0) continue;
+	// 		rowsToMove[i] = mdtable.rows[i];
+	// 		console.log(rowsToMove[i]);
+	// 	}
+	// }
+
+    showCustomModal(myCallback, mdtable);
+}
+
+function myCallback(result) {
+    g_form.setValue('u_rule_data', result);
+	var selects = document.getElementById('u_mincident.u_rule_s_to_add_change_remove');
+	selects.selectedIndex = 0;
+}
+
+function showCustomModal(xCallback, xmdtable) {
+	console.log(xmdtable);
+    var modal = new GlideModal('custom_modal');
+    modal.setTitle('Enter firewall rules');
+    modal.setWidth(900);
+
+    // Define the HTML content with an input field
+    var mdHTML = '<div id="mdfwdiv" style="width:800px">' +
+        '<table id="md_table_1" style="width:800px;margin-bottom:25px;">' +
+        '<tr>' +
+        '<td>' +
+        '<input id="addRowBtn" type="text" value="New" style="width:120px;border:1px solid black;padding:4px;text-align: left;' +
+        ' background-color:#2da44c;color:white;onclick="addRow(this);"></td>' +
+        '</tr>' +
+        '<tr style="background-color: #f3f3f3">' +
+        '<th style="width:95px;border:1px solid black;padding:4px;text-align:left;">Source zone</th>' +
+        '<th style="width:80px;border:1px solid black;padding:4px;text-align:left;">Select</th>' +
+        '<th style="width:120px;border:1px solid black;padding:4px;text-align:left;">Src. IP/Netmask/FQDN</th>' +
+        '<th style="width:95px;border:1px solid black;padding:4px;text-align:left;">Destination zone</th>' +
+        '<th style="width:80px;border:1px solid black;padding:4px;text-align:left;">Select</th>' +
+        '<th style="width:120px;border:1px solid black;padding:4px;text-align:left;">Dst. IP/Netmask/FQDN</th>' +
+        '</tr>' +
+        '<tr>' +
+        '<td style="width:95px;border:1px solid black;padding:4px;text-align:left;">' +
+		'<input type="text" placeholder="Source-Zone-A" style="border:0px solid white;"></td>' +
+        '<td style="width:81px;border:1px solid black;padding:4px;text-align:left;">' +
+        '<select id="srcopt" style="border:0px solid white;">' +
+        '<option value="IP">IP</option>' +
+        '<option value="Netmask">Netmask</option>' +
+        '<option value="FQDN">FQDN</option>' +
+        '</select></td>' +
+        '<td style="width:129px;border:1px solid black;padding:4px;text-align:left;">' +
+		'<input type="text" placeholder="192.168.1.2" style="border:0px solid white;"></td>' +
+        '<td style="width:95px;border:1px solid black;padding:4px;text-align:left;">' +
+		'<input type="text" placeholder="Destination-Zone-A" style="border:0px solid white;"></td>' +
+        '<td style="width:81px;border:1px solid black;padding:4px;text-align:left;">' +
+        '<select id="srcopt" style="border:0px solid white;">' +
+        '<option value="IP">IP</option>' +
+        '<option value="Netmask">Netmask</option>' +
+        '<option value="FQDN">FQDN</option>' +
+        '</select></td>' +
+        '<td style="width:129px;border:1px solid black;padding:4px;text-align:left;">' +
+		'<input type="text" placeholder="192.168.1.3" style="border:0px solid white;"></td>' +
+        '</tr>' +
+        '</table>' +
+        '<input id="removeRowsWithXBtn" type="text" value="Delete selected" onclick="removeRowsWithX();"' +
+        ' style="width:120px;border:1px solid black;padding:4px;background-color:#FF0000;color: white;">' +
+        '<table id="md_table_2" style="width:830px;margin-bottom:25px;">' +
+        '<tr style="background-color:#f3f3f3">' +
+        '<th style="width:30px;border:1px solid black;padding:4px;text-align:left;">Sel</th>' +
+        '<th style="width:165px;border:1px solid black;padding:4px;text-align:left;">Source zone</th>' +
+        '<th style="width:75px;border:1px solid black;padding:4px;text-align:left;">Selected</th>' +
+        '<th style="width:165px;border:1px solid black;padding:4px;text-align:left;">Src. IP/Netmask/FQDN</th>' +
+        '<th style="width:165px;border:1px solid black;padding:4px;text-align:left;">Destination zone</th>' +
+        '<th style="width:75px;border:1px solid black;padding:4px;text-align:left;">Selected</th>' +
+        '<th style="width:165px;border:1px solid black;padding:4px;text-align:left;">Dst. IP/Netmask/FQDN</th>' +
+        '</tr>' +
+        '</table>' +
+		'<button id="submitBtn">Submit</button></div>';
+	// Get table to be extended
+	var tableToExtend = document.getElementById('md_table_2');
+	var numberOfCells = 7; // Number of cells in the table
+	console.log(tableToExtend);
+	console.log(xmdtable);
+	// Add passed rows to md_table_2
+	// console.log("Row 1: ");
+	// console.log(xrowsToMove[0]);
+	// console.log("Row 2: ");
+	// console.log(xrowsToMove[1]);
+	// if (xrowsToMove) {
+	// 	for (i = 0; i < xrowsToMove.length; i++) {
+	// 		console.log(xrowsToMove[i]);
+	// 		var newRow = tableToExtend.insertRow(-1); // Add a new empty row to the end of the table
+	// 		// Add cells to the row
+	// 		for (j = 0; j < numberOfCells; j++) {
+	// 			var newCell = newRow.insertCell(j);
+	// 			console.log(newCell);
+	// 			newCell = xrowsToMove[i].cells[j];
+	// 			console.log(newCell);
+	// 		}
+	// 	}
+
+	// }
+
+	
+    modal.renderWithContent(mdHTML);
+
+    // Add a click listener to the Submit button to send data back
+    setTimeout(function() {
+        console.log('in setTimeout');
+        var submitButton = document.getElementById('submitBtn');
+        var table1 = document.getElementById('md_table_1');
+        var table2 = document.getElementById('md_table_2');
+        if (submitButton) {
+            submitButton.onclick = function() {
+                console.log('sumitted');
+                var userInput = table2.outerHTML;
+                xCallback(userInput);
+                modal.close();
+            };
+        }
+        var addRowButton = document.getElementById("addRowBtn");
+        if (addRowButton) {
+            addRowButton.onclick = function() {
+                // Get the table element
+                console.log('in addRow');
+                // Get the first row
+                var firstRow = table1.rows[2]; // Assuming the first row is at index 2
+                // Get all cells from the first row
+                var table1_cells = firstRow.cells;
+                // Create a new row
+                var newRow = table2.insertRow(-1); // Insert at the end of the table
+                // Insert new cells in the row
+                for (let i = 0; i < 9; i++) {
+                    const newCell = newRow.insertCell(i);
+                    if (i === 0) {
+                        // Add a checkbox to the first cell
+                        newCell.innerHTML = '<input type="checkbox">';
+                        newCell.style.border = '1px solid black';
+                        newCell.style.padding = '4px';
+                        newCell.style.textAlign = 'left';
+                    } else {
+                        // Check if the cell contains an input element
+                        if (table1_cells[i - 1].querySelector('input')) {
+                            const inputElement = table1_cells[i - 1].querySelector('input');
+                            newCell.innerHTML = inputElement.value;
+                            newCell.style.width = 'width: 100px;';
+                            newCell.style.border = '1px solid black';
+                            newCell.style.padding = '4px';
+                            newCell.style.textAlign = 'left';
+                        } else if (table1_cells[i - 1].querySelector('select')) {
+                            const selectElement = table1_cells[i - 1].querySelector('select');
+                            newCell.innerHTML = selectElement.value;
+                            newCell.style.width = 'width: 70px;';
+                            newCell.style.border = '1px solid black';
+                            newCell.style.padding = '4px';
+                            newCell.style.textAlign = 'left';
+                        } else {
+                            newCell.innerHTML = table1_cells[i - 1].innerHTML;
+                            newCell.style.width = 'width: 100px;';
+                            newCell.style.border = '1px solid black';
+                            newCell.style.padding = '4px';
+                            newCell.style.textAlign = 'left';
+                        }
+                    }
+
+                }
+            };
+        }
+        var removeRowsWithXButton = document.getElementById("removeRowsWithXBtn");
+        if (removeRowsWithXButton) {
+            removeRowsWithXButton.onclick = function() {
+                console.log('in removeRowsWithX');
+                // Get the table
+                var table = document.getElementById('md_table_2');
+                console.log(table);
+                // Loop through the rows in reverse order (to avoid index shifting when removing rows)
+                for (let i = table.rows.length - 1; i > 0; i--) {
+                    var firstCell = table.rows[i].cells[0];
+                    var checkbox = firstCell.querySelector('input[type="checkbox"]');
+                    if (checkbox && checkbox.checked) {
+                        table.deleteRow(i); // Remove the row if the checkbox is checked
+                    }
+                }
+            }
+        }
+
+
+    }, 500);
+
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-09 15:35:32</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>8d6490b9833422102ec555a6feaad318</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>mdfirewallmanager</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
+        <sys_update_name>sys_script_client_8d6490b9833422102ec555a6feaad318</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-09 15:35:32</sys_updated_on>
+        <table>u_mincident</table>
+        <type>onChange</type>
+        <ui_type>0</ui_type>
+        <view/>
+    </sys_script_client>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="abccompany">a6dad6e5834422102ec555a6feaad362</application>
+        <file_path/>
+        <instance_id>0151daafdbfdb19002d9172913961974</instance_id>
+        <instance_name>dev187924</instance_name>
+        <name>sys_script_client_8d6490b9833422102ec555a6feaad318</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="global" table="sys_script_client"&gt;&lt;sys_script_client action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;applies_extended&gt;false&lt;/applies_extended&gt;&lt;condition/&gt;&lt;description&gt;Add / Remove firewall rules to mincident&lt;/description&gt;&lt;field&gt;u_rule_s_to_add_change_remove&lt;/field&gt;&lt;global&gt;true&lt;/global&gt;&lt;isolate_script&gt;false&lt;/isolate_script&gt;&lt;messages/&gt;&lt;name&gt;mdfirewallmanager&lt;/name&gt;&lt;order/&gt;&lt;script&gt;&lt;![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+    if (isLoading || newValue === '') {
+        return;
+    }
+
+    //Type appropriate comment here, and begin script below
+    // var mfunction = g_form.getValue('u_mincident.u_rule_s_to_add_change_remove');
+    var mdtable = document.getElementById("md_table_2");
+	console.log("Cs: " + mdtable);
+	// Get data rows from the table to insert into pop up md-table_2 after header row
+	// var rowsToMove = [];
+	// if (mdtable) {
+	// 	console.log(mdtable.rows.length);
+	// 	for (i = 0; i &lt; mdtable.rows.length; i++) {
+	// 		if (i=0) continue;
+	// 		rowsToMove[i] = mdtable.rows[i];
+	// 		console.log(rowsToMove[i]);
+	// 	}
+	// }
+
+    showCustomModal(myCallback, mdtable);
+}
+
+function myCallback(result) {
+    g_form.setValue('u_rule_data', result);
+	var selects = document.getElementById('u_mincident.u_rule_s_to_add_change_remove');
+	selects.selectedIndex = 0;
+}
+
+function showCustomModal(xCallback, xmdtable) {
+	console.log(xmdtable);
+    var modal = new GlideModal('custom_modal');
+    modal.setTitle('Enter firewall rules');
+    modal.setWidth(900);
+
+    // Define the HTML content with an input field
+    var mdHTML = '&lt;div id="mdfwdiv" style="width:800px"&gt;' +
+        '&lt;table id="md_table_1" style="width:800px;margin-bottom:25px;"&gt;' +
+        '&lt;tr&gt;' +
+        '&lt;td&gt;' +
+        '&lt;input id="addRowBtn" type="text" value="New" style="width:120px;border:1px solid black;padding:4px;text-align: left;' +
+        ' background-color:#2da44c;color:white;onclick="addRow(this);"&gt;&lt;/td&gt;' +
+        '&lt;/tr&gt;' +
+        '&lt;tr style="background-color: #f3f3f3"&gt;' +
+        '&lt;th style="width:95px;border:1px solid black;padding:4px;text-align:left;"&gt;Source zone&lt;/th&gt;' +
+        '&lt;th style="width:80px;border:1px solid black;padding:4px;text-align:left;"&gt;Select&lt;/th&gt;' +
+        '&lt;th style="width:120px;border:1px solid black;padding:4px;text-align:left;"&gt;Src. IP/Netmask/FQDN&lt;/th&gt;' +
+        '&lt;th style="width:95px;border:1px solid black;padding:4px;text-align:left;"&gt;Destination zone&lt;/th&gt;' +
+        '&lt;th style="width:80px;border:1px solid black;padding:4px;text-align:left;"&gt;Select&lt;/th&gt;' +
+        '&lt;th style="width:120px;border:1px solid black;padding:4px;text-align:left;"&gt;Dst. IP/Netmask/FQDN&lt;/th&gt;' +
+        '&lt;/tr&gt;' +
+        '&lt;tr&gt;' +
+        '&lt;td style="width:95px;border:1px solid black;padding:4px;text-align:left;"&gt;' +
+		'&lt;input type="text" placeholder="Source-Zone-A" style="border:0px solid white;"&gt;&lt;/td&gt;' +
+        '&lt;td style="width:81px;border:1px solid black;padding:4px;text-align:left;"&gt;' +
+        '&lt;select id="srcopt" style="border:0px solid white;"&gt;' +
+        '&lt;option value="IP"&gt;IP&lt;/option&gt;' +
+        '&lt;option value="Netmask"&gt;Netmask&lt;/option&gt;' +
+        '&lt;option value="FQDN"&gt;FQDN&lt;/option&gt;' +
+        '&lt;/select&gt;&lt;/td&gt;' +
+        '&lt;td style="width:129px;border:1px solid black;padding:4px;text-align:left;"&gt;' +
+		'&lt;input type="text" placeholder="192.168.1.2" style="border:0px solid white;"&gt;&lt;/td&gt;' +
+        '&lt;td style="width:95px;border:1px solid black;padding:4px;text-align:left;"&gt;' +
+		'&lt;input type="text" placeholder="Destination-Zone-A" style="border:0px solid white;"&gt;&lt;/td&gt;' +
+        '&lt;td style="width:81px;border:1px solid black;padding:4px;text-align:left;"&gt;' +
+        '&lt;select id="srcopt" style="border:0px solid white;"&gt;' +
+        '&lt;option value="IP"&gt;IP&lt;/option&gt;' +
+        '&lt;option value="Netmask"&gt;Netmask&lt;/option&gt;' +
+        '&lt;option value="FQDN"&gt;FQDN&lt;/option&gt;' +
+        '&lt;/select&gt;&lt;/td&gt;' +
+        '&lt;td style="width:129px;border:1px solid black;padding:4px;text-align:left;"&gt;' +
+		'&lt;input type="text" placeholder="192.168.1.3" style="border:0px solid white;"&gt;&lt;/td&gt;' +
+        '&lt;/tr&gt;' +
+        '&lt;/table&gt;' +
+        '&lt;input id="removeRowsWithXBtn" type="text" value="Delete selected" onclick="removeRowsWithX();"' +
+        ' style="width:120px;border:1px solid black;padding:4px;background-color:#FF0000;color: white;"&gt;' +
+        '&lt;table id="md_table_2" style="width:830px;margin-bottom:25px;"&gt;' +
+        '&lt;tr style="background-color:#f3f3f3"&gt;' +
+        '&lt;th style="width:30px;border:1px solid black;padding:4px;text-align:left;"&gt;Sel&lt;/th&gt;' +
+        '&lt;th style="width:165px;border:1px solid black;padding:4px;text-align:left;"&gt;Source zone&lt;/th&gt;' +
+        '&lt;th style="width:75px;border:1px solid black;padding:4px;text-align:left;"&gt;Selected&lt;/th&gt;' +
+        '&lt;th style="width:165px;border:1px solid black;padding:4px;text-align:left;"&gt;Src. IP/Netmask/FQDN&lt;/th&gt;' +
+        '&lt;th style="width:165px;border:1px solid black;padding:4px;text-align:left;"&gt;Destination zone&lt;/th&gt;' +
+        '&lt;th style="width:75px;border:1px solid black;padding:4px;text-align:left;"&gt;Selected&lt;/th&gt;' +
+        '&lt;th style="width:165px;border:1px solid black;padding:4px;text-align:left;"&gt;Dst. IP/Netmask/FQDN&lt;/th&gt;' +
+        '&lt;/tr&gt;' +
+        '&lt;/table&gt;' +
+		'&lt;button id="submitBtn"&gt;Submit&lt;/button&gt;&lt;/div&gt;';
+	// Get table to be extended
+	var tableToExtend = document.getElementById('md_table_2');
+	var numberOfCells = 7; // Number of cells in the table
+	console.log(tableToExtend);
+	console.log(xmdtable);
+	// Add passed rows to md_table_2
+	// console.log("Row 1: ");
+	// console.log(xrowsToMove[0]);
+	// console.log("Row 2: ");
+	// console.log(xrowsToMove[1]);
+	// if (xrowsToMove) {
+	// 	for (i = 0; i &lt; xrowsToMove.length; i++) {
+	// 		console.log(xrowsToMove[i]);
+	// 		var newRow = tableToExtend.insertRow(-1); // Add a new empty row to the end of the table
+	// 		// Add cells to the row
+	// 		for (j = 0; j &lt; numberOfCells; j++) {
+	// 			var newCell = newRow.insertCell(j);
+	// 			console.log(newCell);
+	// 			newCell = xrowsToMove[i].cells[j];
+	// 			console.log(newCell);
+	// 		}
+	// 	}
+
+	// }
+
+	
+    modal.renderWithContent(mdHTML);
+
+    // Add a click listener to the Submit button to send data back
+    setTimeout(function() {
+        console.log('in setTimeout');
+        var submitButton = document.getElementById('submitBtn');
+        var table1 = document.getElementById('md_table_1');
+        var table2 = document.getElementById('md_table_2');
+        if (submitButton) {
+            submitButton.onclick = function() {
+                console.log('sumitted');
+                var userInput = table2.outerHTML;
+                xCallback(userInput);
+                modal.close();
+            };
+        }
+        var addRowButton = document.getElementById("addRowBtn");
+        if (addRowButton) {
+            addRowButton.onclick = function() {
+                // Get the table element
+                console.log('in addRow');
+                // Get the first row
+                var firstRow = table1.rows[2]; // Assuming the first row is at index 2
+                // Get all cells from the first row
+                var table1_cells = firstRow.cells;
+                // Create a new row
+                var newRow = table2.insertRow(-1); // Insert at the end of the table
+                // Insert new cells in the row
+                for (let i = 0; i &lt; 9; i++) {
+                    const newCell = newRow.insertCell(i);
+                    if (i === 0) {
+                        // Add a checkbox to the first cell
+                        newCell.innerHTML = '&lt;input type="checkbox"&gt;';
+                        newCell.style.border = '1px solid black';
+                        newCell.style.padding = '4px';
+                        newCell.style.textAlign = 'left';
+                    } else {
+                        // Check if the cell contains an input element
+                        if (table1_cells[i - 1].querySelector('input')) {
+                            const inputElement = table1_cells[i - 1].querySelector('input');
+                            newCell.innerHTML = inputElement.value;
+                            newCell.style.width = 'width: 100px;';
+                            newCell.style.border = '1px solid black';
+                            newCell.style.padding = '4px';
+                            newCell.style.textAlign = 'left';
+                        } else if (table1_cells[i - 1].querySelector('select')) {
+                            const selectElement = table1_cells[i - 1].querySelector('select');
+                            newCell.innerHTML = selectElement.value;
+                            newCell.style.width = 'width: 70px;';
+                            newCell.style.border = '1px solid black';
+                            newCell.style.padding = '4px';
+                            newCell.style.textAlign = 'left';
+                        } else {
+                            newCell.innerHTML = table1_cells[i - 1].innerHTML;
+                            newCell.style.width = 'width: 100px;';
+                            newCell.style.border = '1px solid black';
+                            newCell.style.padding = '4px';
+                            newCell.style.textAlign = 'left';
+                        }
+                    }
+
+                }
+            };
+        }
+        var removeRowsWithXButton = document.getElementById("removeRowsWithXBtn");
+        if (removeRowsWithXButton) {
+            removeRowsWithXButton.onclick = function() {
+                console.log('in removeRowsWithX');
+                // Get the table
+                var table = document.getElementById('md_table_2');
+                console.log(table);
+                // Loop through the rows in reverse order (to avoid index shifting when removing rows)
+                for (let i = table.rows.length - 1; i &gt; 0; i--) {
+                    var firstCell = table.rows[i].cells[0];
+                    var checkbox = firstCell.querySelector('input[type="checkbox"]');
+                    if (checkbox &amp;&amp; checkbox.checked) {
+                        table.deleteRow(i); // Remove the row if the checkbox is checked
+                    }
+                }
+            }
+        }
+
+
+    }, 500);
+
+}]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_client&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-04-09 15:35:32&lt;/sys_created_on&gt;&lt;sys_domain&gt;global&lt;/sys_domain&gt;&lt;sys_domain_path&gt;/&lt;/sys_domain_path&gt;&lt;sys_id&gt;8d6490b9833422102ec555a6feaad318&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name&gt;mdfirewallmanager&lt;/sys_name&gt;&lt;sys_overrides/&gt;&lt;sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362"&gt;a6dad6e5834422102ec555a6feaad362&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="abccompany"&gt;a6dad6e5834422102ec555a6feaad362&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_client_8d6490b9833422102ec555a6feaad318&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-04-09 15:35:32&lt;/sys_updated_on&gt;&lt;table&gt;u_mincident&lt;/table&gt;&lt;type&gt;onChange&lt;/type&gt;&lt;ui_type&gt;0&lt;/ui_type&gt;&lt;view/&gt;&lt;/sys_script_client&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>1811873568</payload_hash>
+        <record_name>mdfirewallmanager</record_name>
+        <reverted_from/>
+        <source>5f942ebb838022102ec555a6feaad333</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-09 15:35:32</sys_created_on>
+        <sys_id>496490b9833422102ec555a6feaad31e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1961b31372f0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-09 15:35:32</sys_updated_on>
+        <type>Client Script</type>
+        <update_guid>4d6490b98e342210a98f7a202b58401d</update_guid>
+        <update_guid_history>4d6490b98e342210a98f7a202b58401d:1811873568</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-10 14:27:13</sys_created_on>
+        <sys_db_object display_value="" name="sys_script_client">sys_script_client</sys_db_object>
+        <sys_id>9b7218371bb54b41906ccb3a93183b71</sys_id>
+        <sys_metadata>8d6490b9833422102ec555a6feaad318</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>mdfirewallmanager</sys_name>
+        <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
+        <sys_parent display_value="mincident">d2559e42831422102ec555a6feaad3e2</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
+        <sys_scope_delete display_value="">10b6b3dc0ed6473c813abb45191b0f90</sys_scope_delete>
+        <sys_update_name>sys_script_client_8d6490b9833422102ec555a6feaad318</sys_update_name>
+        <sys_update_version display_value="sys_script_client_8d6490b9833422102ec555a6feaad318">496490b9833422102ec555a6feaad31e</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-10 14:27:13</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
