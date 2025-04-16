@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_dictionary action="DELETE" element="u_rule_s_to_add_change_remove" table="u_mincident">
+        <active>true</active>
+        <array>false</array>
+        <attributes/>
+        <audit>false</audit>
+        <calculation/>
+        <choice>3</choice>
+        <choice_field/>
+        <choice_table/>
+        <column_label>Manage Rule(s)</column_label>
+        <comments/>
+        <create_roles/>
+        <default_value>Manage Rule(s)</default_value>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>u_rule_s_to_add_change_remove</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <internal_type display_value="Choice">choice</internal_type>
+        <mandatory>false</mandatory>
+        <max_length>40</max_length>
+        <name>u_mincident</name>
+        <next_element/>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_dictionary</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-03-16 23:13:41</sys_created_on>
+        <sys_id>9a171206831422102ec555a6feaad31e</sys_id>
+        <sys_name>Manage Rule(s)</sys_name>
+        <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
+        <sys_update_name>sys_dictionary_u_mincident_u_rule_s_to_add_change_remove</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-15 17:25:06</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_dictionary>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="abccompany">a6dad6e5834422102ec555a6feaad362</application>
+        <file_path/>
+        <instance_id>0151daafdbfdb19002d9172913961974</instance_id>
+        <instance_name>dev187924</instance_name>
+        <name>sys_dictionary_u_mincident_u_rule_s_to_add_change_remove</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update><sys_dictionary action="INSERT_OR_UPDATE" element="u_rule_s_to_add_change_remove" table="u_mincident"><active>true</active><array>false</array><attributes/><audit>false</audit><calculation/><choice>3</choice><choice_field/><choice_table/><column_label>Manage Rule(s)</column_label><comments/><create_roles/><default_value>Manage Rule(s)</default_value><defaultsort/><delete_roles/><dependent/><dependent_on_field/><display>false</display><dynamic_creation>false</dynamic_creation><dynamic_creation_script/><dynamic_default_value/><dynamic_ref_qual/><element>u_rule_s_to_add_change_remove</element><element_reference>false</element_reference><foreign_database/><formula/><function_definition/><function_field>false</function_field><internal_type display_value="Choice">choice</internal_type><mandatory>false</mandatory><max_length>40</max_length><name>u_mincident</name><next_element/><primary>false</primary><read_only>false</read_only><read_roles/><reference/><reference_cascade_rule/><reference_floats>false</reference_floats><reference_key/><reference_qual/><reference_qual_condition/><reference_type/><spell_check>false</spell_check><staged>false</staged><sys_class_name>sys_dictionary</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-03-16 23:13:41</sys_created_on><sys_id>9a171206831422102ec555a6feaad31e</sys_id><sys_name>Manage Rule(s)</sys_name><sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package><sys_policy/><sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope><sys_update_name>sys_dictionary_u_mincident_u_rule_s_to_add_change_remove</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-04-15 17:25:06</sys_updated_on><table_reference>false</table_reference><text_index>false</text_index><unique>false</unique><use_dependent_field>false</use_dependent_field><use_dynamic_default>false</use_dynamic_default><use_reference_qualifier>simple</use_reference_qualifier><virtual>false</virtual><virtual_type>script</virtual_type><widget/><write_roles/><xml_view>false</xml_view></sys_dictionary></record_update>]]></payload>
+        <payload_hash>2033719295</payload_hash>
+        <record_name>mincident.Manage Rule(s)</record_name>
+        <reverted_from/>
+        <source>5f942ebb838022102ec555a6feaad333</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-15 17:25:06</sys_created_on>
+        <sys_id>a007eb6783f422102ec555a6feaad35e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1963a7bb07e0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-15 17:25:06</sys_updated_on>
+        <type>Dictionary</type>
+        <update_guid>2807eb6717f422103e3129b422f41e5d</update_guid>
+        <update_guid_history>2807eb6717f422103e3129b422f41e5d:2033719295,b7a52327e8f422101badad57e7437543:582684007,6bd423e376f42210f444068a70e41847:-1499776248,91a74763fc74221081748e2b31d64862:712730793,21474f23217422104e994b887a577ec7:-1369729462,f4e687239b742210b799a50060703f8e:-1206019963,fa86cfef003422105caf9b0fac71afe2:1143752725,a5d543efda342210cf53c9e0381b50a1:-727742316,352507af163422100b051416f6cb821a:-311670615,e3d48f6f563422104e34748c49b74d8d:-208688408,528a75eeec202210b5b509cbafe508b6:-107870649,4f1752063714221036a5c290b66ea56b:102047878,ee171206a8142210a983398e7da640c1:-244712637</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-15 17:28:41</sys_created_on>
+        <sys_db_object display_value="" name="sys_dictionary">sys_dictionary</sys_db_object>
+        <sys_id>000c08664cf041e4953583adbf8e7b64</sys_id>
+        <sys_metadata>9a171206831422102ec555a6feaad31e</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Manage Rule(s)</sys_name>
+        <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
+        <sys_parent display_value="mincident">d2559e42831422102ec555a6feaad3e2</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
+        <sys_scope_delete display_value="">10b6b3dc0ed6473c813abb45191b0f90</sys_scope_delete>
+        <sys_update_name>sys_dictionary_u_mincident_u_rule_s_to_add_change_remove</sys_update_name>
+        <sys_update_version display_value="sys_dictionary_u_mincident_u_rule_s_to_add_change_remove">a007eb6783f422102ec555a6feaad35e</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-15 17:28:41</sys_updated_on>
+    </sys_metadata_delete>
+    <sys_claim action="INSERT_OR_UPDATE">
+        <claim_owner_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</claim_owner_scope>
+        <claim_timestamp>19640db7df10000001</claim_timestamp>
+        <metadata_update_name>sys_dictionary_u_mincident_u_rule_s_to_add_change_remove</metadata_update_name>
+        <previous_claim_app_version>1.0.0</previous_claim_app_version>
+        <previous_claim_name>abccompany</previous_claim_name>
+        <previous_claim_scope>a6dad6e5834422102ec555a6feaad362</previous_claim_scope>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-16 23:07:28</sys_created_on>
+        <sys_id>a1feb94c834122102ec555a6feaad319</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-16 23:07:28</sys_updated_on>
+    </sys_claim>
+</record_update>

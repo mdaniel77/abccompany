@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description>Manages firewall rule entries of incident.</description>
+        <field>u_add_remove_rule_s</field>
+        <global>true</global>
+        <isolate_script>false</isolate_script>
+        <messages/>
+        <name>mdu_add_remove_rule_s</name>
+        <order/>
+        <script><![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+    if (isLoading || newValue === '') {
+        return;
+    }
+    //Type appropriate comment here, and begin script below
+    var mdtable0 = document.getElementById("md_table_0");
+
+    showCustomModal(myCallback, mdtable0);
+}
+
+function myCallback(result) {
+    g_form.setValue('u_rule_data', result);
+    // Reset drop down list
+    var selects = document.getElementById('u_mincident.u_add_remove_rule_s');
+    selects.selectedIndex = 0;
+}
+
+function showCustomModal(xCallback, sourceTable) {
+    var modal = new GlideModal('custom_modal');
+    modal.setTitle('Enter firewall rules');
+    modal.setWidth(900);
+    // Define the HTML content of pop up
+    var mdfwdiv = getMdfwdiv();
+    // Get table to be extended
+    var targetTable = mdfwdiv.querySelector("table[id='md_table_2']");
+    // If source table already exists add it's content to the target table
+    if (sourceTable) {
+        for (var i = 1; i < sourceTable.rows.length; i++) {
+            var row = sourceTable.rows[i];
+            var clonedRow = row.cloneNode(true);
+            targetTable.appendChild(clonedRow);
+        }
+        // Remove all rows from source table except the header row
+        for (var i = 1; i < sourceTable.rows.length; i++) {
+            sourceTable.rows[i].deleteRow;
+        }
+    }
+
+    modal.renderWithContent(mdfwdiv.innerHTML);
+
+    // Add a click listener to the Submit button to send data back
+    setTimeout(function() {
+        var submitButton = document.getElementById('submitBtn');
+        var table1 = document.getElementById('md_table_1');
+        var table2 = document.getElementById('md_table_2');
+        submitButton.onclick = function() {
+            // Owerride the source table with the pop up result table
+            var mdtmpdiv = document.createElement("div");
+            mdtmpdiv.id = ("mdfwldiv");
+            mdtmpdiv.style.width = "800px";
+            var srcTable = document.createElement("table");
+            srcTable.id = ("md_table_0");
+            mdtmpdiv.appendChild(srcTable);
+            srcTable.innerHTML = table2.innerHTML;
+            var userInput = mdtmpdiv.innerHTML;
+            xCallback(userInput);
+            modal.close();
+        };
+        var addRowButton = document.getElementById("addRowBtn");
+        addRowButton.onclick = function() {
+            // Get the first row
+            var firstRow = table1.rows[2]; // Assuming the first row is at index 2
+            // Get all cells from the first row
+            var table1_cells = firstRow.cells;
+            // Create a new row
+            var newRow = table2.insertRow(-1); // Insert at the end of the table
+            // Insert new cells in the row
+            for (var i = 0; i < 9; i++) {
+                var newCell = newRow.insertCell(i);
+                if (i === 0) {
+                    // Add a checkbox to the first cell
+                    newCell.innerHTML = '<input type="checkbox">';
+                    newCell.style.border = '1px solid black';
+                    newCell.style.padding = '4px';
+                    newCell.style.textAlign = 'left';
+                } else {
+                    // Check if the cell contains an input element
+                    if (table1_cells[i - 1].querySelector('input')) {
+                        var inputElement = table1_cells[i - 1].querySelector('input');
+                        newCell.innerHTML = inputElement.value;
+                        newCell.style.width = 'width: 100px;';
+                        newCell.style.border = '1px solid black';
+                        newCell.style.padding = '4px';
+                        newCell.style.textAlign = 'left';
+                    } else if (table1_cells[i - 1].querySelector('select')) {
+                        var selectElement = table1_cells[i - 1].querySelector('select');
+                        newCell.innerHTML = selectElement.value;
+                        newCell.style.width = 'width: 70px;';
+                        newCell.style.border = '1px solid black';
+                        newCell.style.padding = '4px';
+                        newCell.style.textAlign = 'left';
+                    } else {
+                        newCell.innerHTML = table1_cells[i - 1].innerHTML;
+                        newCell.style.width = 'width: 100px;';
+                        newCell.style.border = '1px solid black';
+                        newCell.style.padding = '4px';
+                        newCell.style.textAlign = 'left';
+                    }
+                }
+
+            }
+        };
+        var removeRowsWithXButton = document.getElementById("removeRowsWithXBtn");
+        removeRowsWithXButton.onclick = function() {
+            // Loop through the rows in reverse order (to avoid index shifting when removing rows)
+            for (var i = table2.rows.length - 1; i > 0; i--) {
+                var firstCell = table2.rows[i].cells[0];
+                var checkbox = firstCell.querySelector('input[type="checkbox"]');
+                if (checkbox && checkbox.checked) {
+                    table2.deleteRow(i); // Remove the row if the checkbox is checked
+                }
+            }
+        }
+
+
+    }, 500, sourceTable);
+
+    // Pop up html code
+    //=================
+    function getMdfwdiv() {
+        mdfwdiv = document.createElement("div");
+        mdfwdiv.id = ("mdfwdiv");
+        mdfwdiv.style.width = "800px";
+        var mdHTMLInpTable = '<table id="md_table_1" style="width:800px;margin-bottom:25px;"><tbody>' +
+            '<tr>' +
+            '<td>' +
+            '<input id="addRowBtn" type="text" value="Add" style="width:60px;border:1px solid black;border-radius:4px;padding:4px;text-align: left;' +
+            ' background-color:#2da44c;color:white;text-align:center;onclick="addRow(this);"></td>' +
+            '</tr>';
+        var mdHTMLInpTableHeader = '<tr style="background-color: #f3f3f3">' +
+            '<th style="width:125px;border:1px solid black;padding:4px;text-align:left;">Source zone</th>' +
+            '<th style="width:70px;border:1px solid black;padding:4px;text-align:left;">Select</th>' +
+            '<th style="width:125px;border:1px solid black;padding:4px;text-align:left;">Src. IP/Netmask/FQDN</th>' +
+            '<th style="width:125px;border:1px solid black;padding:4px;text-align:left;">Destination zone</th>' +
+            '<th style="width:70px;border:1px solid black;padding:4px;text-align:left;">Select</th>' +
+            '<th style="width:125px;border:1px solid black;padding:4px;text-align:left;">Dst. IP/Netmask/FQDN</th>' +
+            '<th style="width:20px;border:1px solid black;padding:4px;text-align:left;">Protocol</th>' +
+            '<th style="width:40px;border:1px solid black;padding:4px;text-align:left;">Port</th>' +
+            '</tr>';
+        var mdHTMLInpTableRow = '<tr>' +
+            '<td style="width:125px;border:1px solid black;padding:4px;text-align:left;">' +
+            '<input type="text" placeholder="Source-Zone-A" style="width:125px;border:0px solid white;"></td>' +
+            '<td style="width:70px;border:1px solid black;padding:4px;text-align:left;">' +
+            '<select id="srcopt" style="width:70px;border:0px solid white;">' +
+            '<option value="IP">IP</option>' +
+            '<option value="Netmask">Netmask</option>' +
+            '<option value="FQDN">FQDN</option>' +
+            '</select></td>' +
+            '<td style="width:129px;border:1px solid black;padding:4px;text-align:left;">' +
+            '<input type="text" placeholder="192.168.1.2" style="width:129px;border:0px solid white;"></td>' +
+            '<td style="width:125px;border:1px solid black;padding:4px;text-align:left;">' +
+            '<input type="text" placeholder="Destination-Zone-A" style="width:125px;border:0px solid white;"></td>' +
+            '<td style="width:70px;border:1px solid black;padding:4px;text-align:left;">' +
+            '<select id="srcopt" style="width:70px;border:0px solid white;">' +
+            '<option value="IP">IP</option>' +
+            '<option value="Netmask">Netmask</option>' +
+            '<option value="FQDN">FQDN</option>' +
+            '</select></td>' +
+            '<td style="width:129px;border:1px solid black;padding:4px;text-align:left;">' +
+            '<input type="text" placeholder="192.168.1.3" style="width:129px;border:0px solid white;"></td>' +
+            '<td style="width:70px;border:1px solid black;padding:4px;text-align:left;">' +
+            '<select id="protopt" style="width:70px;border:0px solid white;">' +
+            '<option value="TCP">TCP</option>' +
+            '<option value="UDP">UDP</option>' +
+            '</select></td>' +
+            '<td style="width:40px;border:1px solid black;padding:4px;text-align:left;">' +
+            '<input type="number" placeholder="8888" id="portnumber" name="portnumber" onblur="validatePortNumber()" style="width:40px;border:0px solid white;"></td>' +
+            '</tr>' +
+            '</tbody></table>';
+        var mdHTMLFwListRemButton =
+            '<table>' +
+            '<tr><td>' +
+            '<input id="removeRowsWithXBtn" type="text" value="Delete" onclick="removeRowsWithX();"' +
+            ' style="width:60px;border:1px solid black;border-radius:4px;padding:4px;background-color:#FF0000;color:white;text-align:center;"></td>' +
+            '<td>Selected</td></tr>' +
+            '</table>';
+        var mdHTMLFwListTable = '<table id="md_table_2" style="width:830px;margin-bottom:25px;"><tbody>' +
+            '<tr style="background-color:#f3f3f3">' +
+            '<th style="width:30px;border:1px solid black;padding:4px;text-align:left;">Sel</th>' +
+            '<th style="width:165px;border:1px solid black;padding:4px;text-align:left;">Source zone</th>' +
+            '<th style="width:75px;border:1px solid black;padding:4px;text-align:left;">Selected</th>' +
+            '<th style="width:165px;border:1px solid black;padding:4px;text-align:left;">Src. IP/Netmask/FQDN</th>' +
+            '<th style="width:165px;border:1px solid black;padding:4px;text-align:left;">Destination zone</th>' +
+            '<th style="width:75px;border:1px solid black;padding:4px;text-align:left;">Selected</th>' +
+            '<th style="width:165px;border:1px solid black;padding:4px;text-align:left;">Dst. IP/Netmask/FQDN</th>' +
+            '<th style="width:20px;border:1px solid black;padding:4px;text-align:left;">Protocol</th>' +
+            '<th style="width:20px;border:1px solid black;padding:4px;text-align:left;">Port</th>' +
+            '</tr>' +
+            '</tbody></table><button id="submitBtn">Submit</button>';
+        var mdHTML = mdHTMLInpTable + mdHTMLInpTableHeader + mdHTMLInpTableRow + mdHTMLFwListRemButton + mdHTMLFwListTable;
+
+        mdfwdiv.innerHTML = mdHTML;
+
+        return mdfwdiv;
+    }
+
+    function validateZoneName() {
+        var zoneNameInput = document.getElementById("zonename");
+        var zoneName = zoneNameInput.value;
+        var regex = /^([A-Za-z0-9\s])+(,[A-Za-z0-9\s]+)*$/;
+
+        if (!regex.test(zoneName)) {
+            zoneNameInput.setCustomValidity(
+                'Invalid zone name format. Zone names must be comma-separated and must not contain "." characters.'
+            );
+            zoneNameInput.reportValidity();
+        } else {
+            zoneNameInput.setCustomValidity("");
+        }
+    }
+    // Function to validate IP address format
+    function validateIpAddr(pipaddr) {
+        var ipAddrInput = document.getElementById(pipaddr);
+        var ipAddr = ipAddrInput.value;
+        const regex =
+            /^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(-\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})?)(,\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(-\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})?)*$/;
+
+        // var isValid = ipAddr.split(",").every((ip) => {
+        //   var trimmedIp = ip.trim();
+        //   var parts = trimmedIp.split(".").map(Number);
+        //   return (
+        //     parts.length === 4 &&
+        //     parts.every((part) => part >= 0 && part <= 255)
+        //   );
+        // });
+
+        var result;
+        // if (!regex.test(ipAddr || !isValid)) {
+        if (!regex.test(ipAddr)) {
+            ipAddrInput.setCustomValidity(
+                "Invalid IP address format. Enter valid IPv4 addresses separated by commas."
+            );
+            ipAddrInput.reportValidity();
+            result = false;
+        } else {
+            ipAddrInput.setCustomValidity("");
+            result = true;
+        }
+        return result;
+    }
+
+    // Function to validate netmask format
+    function validateNetmask() {
+        var netmaskInput = document.getElementById("netmask");
+        var netmask = netmaskInput.value;
+
+        // Regular expression to validate CIDR notation (e.g., 192.168.1.1/21)
+        const regex =
+            /^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\/([0-9]|[1-2][0-9]|3[0-2])$/;
+
+        if (!regex.test(netmask) && !validateIpAddr("netmask")) {
+            netmaskInput.setCustomValidity(
+                "Invalid netmask format. Enter a valid CIDR notation (e.g., 192.168.1.1/21)."
+            );
+            netmaskInput.reportValidity();
+        } else {
+            netmaskInput.setCustomValidity("");
+        }
+
+        // Further validation for the IP address and prefix length
+        // const [ip, prefixLength] = netmask.split("/");
+        // const parts = ip.split(".").map(Number);
+
+        // const isValidIp =
+        //   parts.length === 4 && parts.every((part) => part >= 0 && part <= 255);
+
+        // const isValidPrefix =
+        //   parseInt(prefixLength, 10) >= 0 && parseInt(prefixLength, 10) <= 32;
+
+        // if (!isValidIp || !isValidPrefix) {
+        //   netmaskInput.setCustomValidity(
+        //     "Invalid netmask format. Ensure the IP is valid and the prefix length is between 0 and 32."
+        //   );
+        //   netmaskInput.reportValidity();
+        // } else {
+        //   netmaskInput.setCustomValidity("");
+        // }
+    }
+
+    // Function to validate port number format, number should be between 1 and 65535
+    function validatePortNumber() {
+        const portNumberInput = document.getElementById("portnumber");
+        const portNumber = parseInt(portNumberInput.value, 10);
+
+        if (isNaN(portNumber) || portNumber < 1 || portNumber > 65535) {
+            portNumberInput.setCustomValidity(
+                "Invalid port number. Enter an integer between 0 and 65535."
+            );
+            portNumberInput.reportValidity();
+        } else {
+            portNumberInput.setCustomValidity("");
+        }
+    }
+
+    // Function to validate FQDN format
+    function validateFQDM() {
+        const domainInput = document.getElementById("fqdn");
+        const domainValue = domainInput.value;
+
+        // Regular expression to validate domain names
+        const regex =
+            /^([a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,})(,\s*[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,})*$/;
+
+        if (!regex.test(domainValue)) {
+            domainInput.setCustomValidity(
+                "Invalid domain name format. Enter valid domain names separated by commas (e.g., example.com, test.org)."
+            );
+            domainInput.reportValidity();
+        } else {
+            domainInput.setCustomValidity("");
+        }
+    }
+
+
+
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-15 17:33:41</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>49786be783f422102ec555a6feaad37d</sys_id>
+        <sys_mod_count>11</sys_mod_count>
+        <sys_name>mdu_add_remove_rule_s</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
+        <sys_update_name>sys_script_client_49786be783f422102ec555a6feaad37d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-16 23:06:10</sys_updated_on>
+        <table>u_mincident</table>
+        <type>onChange</type>
+        <ui_type>0</ui_type>
+        <view/>
+    </sys_script_client>
+</record_update>

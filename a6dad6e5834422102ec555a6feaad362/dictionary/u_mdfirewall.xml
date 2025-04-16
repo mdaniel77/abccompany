@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="c2deca4a83d022102ec555a6feaad3be" label="mdfirewall" max_length="40" name="u_mdfirewall" type="collection">
+        <element choice="3" default="TCP" label="Protocol" max_length="10" name="u_protocol" type="string">
+            <choice>
+                <element inactive_on_update="false" label="UDP" sequence="2" value="UDP"/>
+                <element inactive_on_update="false" label="TCP" sequence="1" value="TCP"/>
+            </choice>
+        </element>
         <element label="Source IP 1" max_length="40" name="u_source_ip_1" type="string"/>
         <element label="Destination zone 1" max_length="40" name="u_destination_zone_1" type="string"/>
         <element label="Source zone 1" max_length="40" name="u_source_zone_1" type="string"/>
         <element label="Destination IP 1" max_length="40" name="u_destination_ip_1" type="string"/>
+        <element label="Port" max_length="5" name="u_port" type="integer"/>
     </element>
 </database>

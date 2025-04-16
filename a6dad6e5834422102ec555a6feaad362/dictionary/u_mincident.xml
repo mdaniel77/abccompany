@@ -1,25 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="d2559e42831422102ec555a6feaad3e2" label="mincident" max_length="40" name="u_mincident" type="collection">
-        <element label="Select any location:" max_length="40" name="u_select_any_location" type="choice">
+        <element choice="3" default="AFG" dependent="u_select_a_region" dependent_on_field="u_select_a_region" label="Select location:" max_length="40" name="u_select_any_location" type="choice" use_dependent_field="true">
             <choice>
-                <element inactive_on_update="false" label="Location 2" sequence="1" value="location_2"/>
-                <element inactive_on_update="false" label="Location 1" sequence="0" value="location_1"/>
-                <element inactive_on_update="false" label="Location 3" sequence="2" value="location_3"/>
+                <element dependent_value="Factory" inactive_on_update="false" label="Pakistan" sequence="1" value="PAK"/>
+                <element dependent_value="Internet" inactive_on_update="false" label="Untrust" sequence="2" value="Untrust"/>
+                <element dependent_value="Datacenter" inactive_on_update="false" label="GUEST" sequence="2" value="GUEST"/>
+                <element dependent_value="Factory" inactive_on_update="false" label="Afganistan" sequence="0" value="AFG"/>
+                <element dependent_value="Factory" inactive_on_update="false" label="Philippines" sequence="2" value="PHL"/>
+                <element dependent_value="Internet" inactive_on_update="false" label="Trust" sequence="1" value="Trust"/>
+                <element dependent_value="Datacenter" inactive_on_update="false" label="DMZ" sequence="0" value="DMZ"/>
+                <element dependent_value="Datacenter" inactive_on_update="false" label="OUTSIDE" sequence="3" value="OUTSIDE"/>
+                <element dependent_value="Datacenter" inactive_on_update="false" label="INSIDE" sequence="1" value="INSIDE"/>
             </choice>
         </element>
         <element label="Reporter" max_length="40" name="u_reporter" type="string"/>
         <element label="Rule data" max_length="300" name="u_rule_data" read_only="true" type="html"/>
-        <element label="Select a region:" max_length="40" name="u_select_a_region" type="choice">
+        <element choice="3" label="Select environment:" max_length="40" name="u_select_a_region" type="choice" use_dependent_field="true">
             <choice>
-                <element inactive_on_update="false" label="Region 2" sequence="1" value="region_2"/>
-                <element inactive_on_update="false" label="Region 3" sequence="2" value="region_3"/>
-                <element inactive_on_update="false" label="Region 1" sequence="0" value="region_1"/>
+                <element dependent_value="Global" inactive_on_update="false" label="Internet" sequence="1" value="Internet"/>
+                <element dependent_value="SUI" inactive_on_update="false" label="Datacenter" sequence="2" value="Datacenter"/>
+                <element inactive_on_update="false" label="Factory" sequence="0" value="Factory"/>
             </choice>
         </element>
-        <element choice="1" label="Rule(s) to add/change/remove" max_length="40" name="u_rule_s_to_add_change_remove" type="string">
+        <element choice="3" label="Add/Remove Rule(s)" max_length="40" name="u_add_remove_rule_s" type="choice">
             <choice>
-                <element inactive_on_update="false" label="Modify" sequence="1" value="modify"/>
-                <element inactive_on_update="false" label="Delete" sequence="2" value="delete"/>
+                <element inactive_on_update="false" label="Remove" sequence="1" value="remove"/>
                 <element inactive_on_update="false" label="Add" sequence="0" value="add"/>
             </choice>
         </element>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="DELETE">
+        <active>false</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description>Shows a pop up to enter firewall data</description>
+        <field>u_rule_s_to_add_change_remove</field>
+        <global>true</global>
+        <isolate_script>false</isolate_script>
+        <messages/>
+        <name>mdfirewalladd</name>
+        <order/>
+        <script><![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+    if (isLoading || newValue === '') {
+        return;
+    }
+
+    //Type appropriate comment here, and begin script below
+    mfunction = g_form.getValue('u_mincident.u_rule_s_to_add_change_remove');
+    g_form.setValue('u_mincident.u_rule_data.form-control', ' result');
+
+    showCustomModal(myCallback);
+}
+
+function myCallback(result) {
+    g_form.setValue('u_rule_data', result);
+}
+
+function showCustomModal(xCallback) {
+    var modal = new GlideModal('custom_modal');
+    modal.setTitle('Enter Your Data');
+
+    // Define the HTML content with an input field
+    modal.renderWithContent('<div style="padding: 20px;">' +
+        '<input type="text" id="srcz" style="width:40%; margin-bottom:10px;" />' +
+        '<input type="text" id="srcip" style="width:40%; margin-bottom:10px;" />' +
+        '<input type="text" id="dstz" style="width:40%; margin-bottom:10px;" />' +
+        '<input type="text" id="dstip" style="width:40%; margin-bottom:10px;" />' +
+        '<button id="submitBtn">Submit</button>' +
+        '</div>');
+
+    // Add a click listener to the Submit button to send data back
+    setTimeout(function() {
+        var submitButton = document.getElementById('submitBtn');
+        if (submitButton) {
+            submitButton.onclick = function() {
+                var srcz = document.getElementById('srcz').value;
+                var srcip = document.getElementById('srcip').value;
+                var dstz = document.getElementById('dstz').value;
+                var dstip = document.getElementById('dstip').value;
+                var userInput = srcz + ' | ' + srcip + ' | ' + dstz + ' | ' + dstip;
+                xCallback(userInput);
+                modal.close();
+            };
+        }
+    }, 500);
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-03-30 20:52:31</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>a98b3522836022102ec555a6feaad35b</sys_id>
+        <sys_mod_count>39</sys_mod_count>
+        <sys_name>mdfirewalladd</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
+        <sys_update_name>sys_script_client_a98b3522836022102ec555a6feaad35b</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-05 22:50:39</sys_updated_on>
+        <table>u_mincident</table>
+        <type>onChange</type>
+        <ui_type>0</ui_type>
+        <view/>
+    </sys_script_client>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="abccompany">a6dad6e5834422102ec555a6feaad362</application>
+        <file_path/>
+        <instance_id>0151daafdbfdb19002d9172913961974</instance_id>
+        <instance_name>dev187924</instance_name>
+        <name>sys_script_client_a98b3522836022102ec555a6feaad35b</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="global" table="sys_script_client"&gt;&lt;sys_script_client action="INSERT_OR_UPDATE"&gt;&lt;active&gt;false&lt;/active&gt;&lt;applies_extended&gt;false&lt;/applies_extended&gt;&lt;condition/&gt;&lt;description&gt;Shows a pop up to enter firewall data&lt;/description&gt;&lt;field&gt;u_rule_s_to_add_change_remove&lt;/field&gt;&lt;global&gt;true&lt;/global&gt;&lt;isolate_script&gt;false&lt;/isolate_script&gt;&lt;messages/&gt;&lt;name&gt;mdfirewalladd&lt;/name&gt;&lt;order/&gt;&lt;script&gt;&lt;![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+    if (isLoading || newValue === '') {
+        return;
+    }
+
+    //Type appropriate comment here, and begin script below
+    mfunction = g_form.getValue('u_mincident.u_rule_s_to_add_change_remove');
+    g_form.setValue('u_mincident.u_rule_data.form-control', ' result');
+
+    showCustomModal(myCallback);
+}
+
+function myCallback(result) {
+    g_form.setValue('u_rule_data', result);
+}
+
+function showCustomModal(xCallback) {
+    var modal = new GlideModal('custom_modal');
+    modal.setTitle('Enter Your Data');
+
+    // Define the HTML content with an input field
+    modal.renderWithContent('&lt;div style="padding: 20px;"&gt;' +
+        '&lt;input type="text" id="srcz" style="width:40%; margin-bottom:10px;" /&gt;' +
+        '&lt;input type="text" id="srcip" style="width:40%; margin-bottom:10px;" /&gt;' +
+        '&lt;input type="text" id="dstz" style="width:40%; margin-bottom:10px;" /&gt;' +
+        '&lt;input type="text" id="dstip" style="width:40%; margin-bottom:10px;" /&gt;' +
+        '&lt;button id="submitBtn"&gt;Submit&lt;/button&gt;' +
+        '&lt;/div&gt;');
+
+    // Add a click listener to the Submit button to send data back
+    setTimeout(function() {
+        var submitButton = document.getElementById('submitBtn');
+        if (submitButton) {
+            submitButton.onclick = function() {
+                var srcz = document.getElementById('srcz').value;
+                var srcip = document.getElementById('srcip').value;
+                var dstz = document.getElementById('dstz').value;
+                var dstip = document.getElementById('dstip').value;
+                var userInput = srcz + ' | ' + srcip + ' | ' + dstz + ' | ' + dstip;
+                xCallback(userInput);
+                modal.close();
+            };
+        }
+    }, 500);
+}]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_client&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-03-30 20:52:31&lt;/sys_created_on&gt;&lt;sys_domain&gt;global&lt;/sys_domain&gt;&lt;sys_domain_path&gt;/&lt;/sys_domain_path&gt;&lt;sys_id&gt;a98b3522836022102ec555a6feaad35b&lt;/sys_id&gt;&lt;sys_mod_count&gt;39&lt;/sys_mod_count&gt;&lt;sys_name&gt;mdfirewalladd&lt;/sys_name&gt;&lt;sys_overrides/&gt;&lt;sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362"&gt;a6dad6e5834422102ec555a6feaad362&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="abccompany"&gt;a6dad6e5834422102ec555a6feaad362&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_client_a98b3522836022102ec555a6feaad35b&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-04-05 22:50:39&lt;/sys_updated_on&gt;&lt;table&gt;u_mincident&lt;/table&gt;&lt;type&gt;onChange&lt;/type&gt;&lt;ui_type&gt;0&lt;/ui_type&gt;&lt;view/&gt;&lt;/sys_script_client&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>1722813966</payload_hash>
+        <record_name>mdfirewalladd</record_name>
+        <reverted_from/>
+        <source>5f942ebb838022102ec555a6feaad333</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-05 22:50:39</sys_created_on>
+        <sys_id>fb915124837022102ec555a6feaad3ab</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>196082624e70000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-05 22:50:39</sys_updated_on>
+        <type>Client Script</type>
+        <update_guid>73915124ce702210105eccb2b73ffeab</update_guid>
+        <update_guid_history>73915124ce702210105eccb2b73ffeab:1722813966,8ebc666af02422106dd49eaa49dbd86e:592853697,692ceaea33242210478fefc547f2cc79:1171354397,811ceaeaa2242210961bac484ba7bc74:-1688391410,578aae6a1f2422108ccca448edbd1a57:-1964787764,500ae26a262422100941cc4da84916c0:1949232261,c9e9eaa664242210c881f8c0fe3f466b:-838674211,b03726a29e242210ca77ea4f7602ddb6:878856856,9b07eee28d242210fe0b0d9b900613ac:1782908708,8d96e6e2352422101e6386fc0f7bb452:328398687,cfe52ae20a24221096cde6d6c08de042:1168699342,1f75e6e2d32422100da047ce527a2510:202602663,8b646662d8242210e376b33d8c4cf308:954082055,ff04ea6268242210bd528a8bc3f1454f:982275451,f9b36a22932422105a0adc8c0eaf5328:451314150,92f222ee49e02210a3afd836e3754da4:1470472891,79e2262261242210840395bef51dcd3d:-1110320278,31c0eee66ee02210a1a728d5614d01df:1217643728,0b3f5aea5be02210f7c99ca5b4735c92:1212341918,c2bc1ee6bde02210c3eac1f0540a8656:1748477646,f16c1eae4da0221067a089297cc39230:926420159,620c1ee6fde02210ae558ce9039fa84e:-2114963516,c006d22e05a02210e5e832b276182de8:1384018201,bd14926e11a022100842f74bbb529bf3:-1622744161,69f21ee294a02210274d9706061a57fd:684822685,7b92da2e05a0221001842d47c0f9d5fb:1491023216,1f121e2ae1a02210bc6b705c8389adca:1894068448,350052e6faa022102e4cbc470f0e9934:-292843296,43bdcea61da02210eba3418054c43702:776010382,37290a620aa022102fce418f49ad1679:-1245342974,70090a2255a02210bb87a9a5954ec0f0:-605070292,ac48022e0b6022102b5dd8e67c328415:-1591209868,02d7ceeafe602210f3cacc4097098db3:-1771977095,e0c70eeee6602210351c9e4da5572c3e:1199533595,2907822e63602210f0ad97813881055a:-1915652035,be81cae6bd602210b29421f89d0b83d6:950788677,b1f002e6bb60221041c8e0acf04965f4:-1010730483,c4c00ea64f602210c169f23037c3943f:2115669307,fa5086a256602210918cedd4217c3fcd:1256783937,f20db5a29e602210a09587e1f988763c:-849015965</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-15 17:28:42</sys_created_on>
+        <sys_db_object display_value="" name="sys_script_client">sys_script_client</sys_db_object>
+        <sys_id>4a1ebe0664674f27b1a28d4fd8fcd549</sys_id>
+        <sys_metadata>a98b3522836022102ec555a6feaad35b</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>mdfirewalladd</sys_name>
+        <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
+        <sys_parent display_value="mincident">d2559e42831422102ec555a6feaad3e2</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
+        <sys_scope_delete display_value="">10b6b3dc0ed6473c813abb45191b0f90</sys_scope_delete>
+        <sys_update_name>sys_script_client_a98b3522836022102ec555a6feaad35b</sys_update_name>
+        <sys_update_version display_value="sys_script_client_a98b3522836022102ec555a6feaad35b">fb915124837022102ec555a6feaad3ab</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-15 17:28:42</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="DELETE">
+        <active>true</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description>Add / Remove firewall rules to mincident</description>
+        <field>u_rule_s_to_add_change_remove</field>
+        <global>true</global>
+        <isolate_script>false</isolate_script>
+        <messages/>
+        <name>mdfirewallmanager</name>
+        <order/>
+        <script><![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+    if (isLoading || newValue === '') {
+        return;
+    }
+
+    //Type appropriate comment here, and begin script below
+    var mdtable0 = document.getElementById("md_table_0");
+
+    showCustomModal(myCallback, mdtable0);
+}
+
+function myCallback(result) {
+    g_form.setValue('u_rule_data', result);
+    // Reset drop down list
+    var selects = document.getElementById('u_mincident.u_rule_s_to_add_change_remove');
+    selects.selectedIndex = 0;
+}
+
+function showCustomModal(xCallback, sourceTable) {
+    var modal = new GlideModal('custom_modal');
+    modal.setTitle('Enter firewall rules');
+    modal.setWidth(900);
+    // Define the HTML content of pop up
+    var mdfwdiv = getMdfwdiv();
+    // Get table to be extended
+    var targetTable = mdfwdiv.querySelector("table[id='md_table_2']");
+    // If source table already exists add it's content to the target table
+    if (sourceTable) {
+        for (var i = 1; i < sourceTable.rows.length; i++) {
+            var row = sourceTable.rows[i];
+            var clonedRow = row.cloneNode(true);
+            targetTable.appendChild(clonedRow);
+        }
+        // Remove all rows from source table except the header row
+        for (var i = 1; i < sourceTable.rows.length; i++) {
+            sourceTable.rows[i].deleteRow;
+        }
+    }
+
+    modal.renderWithContent(mdfwdiv.innerHTML);
+
+    // Add a click listener to the Submit button to send data back
+    setTimeout(function() {
+        var submitButton = document.getElementById('submitBtn');
+        var table1 = document.getElementById('md_table_1');
+        var table2 = document.getElementById('md_table_2');
+        submitButton.onclick = function() {
+            // Owerride the source table with the pop up result table
+            var mdtmpdiv = document.createElement("div");
+            mdtmpdiv.id = ("mdfwldiv");
+            mdtmpdiv.style.width = "800px";
+            var srcTable = document.createElement("table");
+            srcTable.id = ("md_table_0");
+            mdtmpdiv.appendChild(srcTable);
+            srcTable.innerHTML = table2.innerHTML;
+            var userInput = mdtmpdiv.innerHTML;
+            xCallback(userInput);
+            modal.close();
+        };
+        var addRowButton = document.getElementById("addRowBtn");
+        addRowButton.onclick = function() {
+            // Get the first row
+            var firstRow = table1.rows[2]; // Assuming the first row is at index 2
+            // Get all cells from the first row
+            var table1_cells = firstRow.cells;
+            // Create a new row
+            var newRow = table2.insertRow(-1); // Insert at the end of the table
+            // Insert new cells in the row
+            for (var i = 0; i < 9; i++) {
+                var newCell = newRow.insertCell(i);
+                if (i === 0) {
+                    // Add a checkbox to the first cell
+                    newCell.innerHTML = '<input type="checkbox">';
+                    newCell.style.border = '1px solid black';
+                    newCell.style.padding = '4px';
+                    newCell.style.textAlign = 'left';
+                } else {
+                    // Check if the cell contains an input element
+                    if (table1_cells[i - 1].querySelector('input')) {
+                        var inputElement = table1_cells[i - 1].querySelector('input');
+                        newCell.innerHTML = inputElement.value;
+                        newCell.style.width = 'width: 100px;';
+                        newCell.style.border = '1px solid black';
+                        newCell.style.padding = '4px';
+                        newCell.style.textAlign = 'left';
+                    } else if (table1_cells[i - 1].querySelector('select')) {
+                        var selectElement = table1_cells[i - 1].querySelector('select');
+                        newCell.innerHTML = selectElement.value;
+                        newCell.style.width = 'width: 70px;';
+                        newCell.style.border = '1px solid black';
+                        newCell.style.padding = '4px';
+                        newCell.style.textAlign = 'left';
+                    } else {
+                        newCell.innerHTML = table1_cells[i - 1].innerHTML;
+                        newCell.style.width = 'width: 100px;';
+                        newCell.style.border = '1px solid black';
+                        newCell.style.padding = '4px';
+                        newCell.style.textAlign = 'left';
+                    }
+                }
+
+            }
+        };
+        var removeRowsWithXButton = document.getElementById("removeRowsWithXBtn");
+        removeRowsWithXButton.onclick = function() {
+            // Loop through the rows in reverse order (to avoid index shifting when removing rows)
+            for (var i = table2.rows.length - 1; i > 0; i--) {
+                var firstCell = table2.rows[i].cells[0];
+                var checkbox = firstCell.querySelector('input[type="checkbox"]');
+                if (checkbox && checkbox.checked) {
+                    table2.deleteRow(i); // Remove the row if the checkbox is checked
+                }
+            }
+        }
+
+
+    }, 500, sourceTable);
+
+	// Pop up html code
+	//=================
+      function getMdfwdiv() {
+        mdfwdiv = document.createElement("div");
+        mdfwdiv.id = ("mdfwdiv");
+        mdfwdiv.style.width = "800px";
+        var mdHTMLInpTable = '<table id="md_table_1" style="width:800px;margin-bottom:25px;"><tbody>' +
+            '<tr>' +
+            '<td>' +
+            '<input id="addRowBtn" type="text" value="Add" style="width:60px;border:1px solid black;border-radius:4px;padding:4px;text-align: left;' +
+            ' background-color:#2da44c;color:white;text-align:center;onclick="addRow(this);"></td>' +
+            '</tr>';
+        var mdHTMLInpTableHeader = '<tr style="background-color: #f3f3f3">' +
+            '<th style="width:95px;border:1px solid black;padding:4px;text-align:left;">Source zone</th>' +
+            '<th style="width:80px;border:1px solid black;padding:4px;text-align:left;">Select</th>' +
+            '<th style="width:120px;border:1px solid black;padding:4px;text-align:left;">Src. IP/Netmask/FQDN</th>' +
+            '<th style="width:95px;border:1px solid black;padding:4px;text-align:left;">Destination zone</th>' +
+            '<th style="width:80px;border:1px solid black;padding:4px;text-align:left;">Select</th>' +
+            '<th style="width:120px;border:1px solid black;padding:4px;text-align:left;">Dst. IP/Netmask/FQDN</th>' +
+            '<th style="width:20px;border:1px solid black;padding:4px;text-align:left;">Protocol</th>' +
+            '<th style="width:20px;border:1px solid black;padding:4px;text-align:left;">Port</th>' +
+            '</tr>';
+        var mdHTMLInpTableRow = '<tr>' +
+            '<td style="width:95px;border:1px solid black;padding:4px;text-align:left;">' +
+            '<input type="text" placeholder="Source-Zone-A" style="border:0px solid white;"></td>' +
+            '<td style="width:81px;border:1px solid black;padding:4px;text-align:left;">' +
+            '<select id="srcopt" style="border:0px solid white;">' +
+            '<option value="IP">IP</option>' +
+            '<option value="Netmask">Netmask</option>' +
+            '<option value="FQDN">FQDN</option>' +
+            '</select></td>' +
+            '<td style="width:129px;border:1px solid black;padding:4px;text-align:left;">' +
+            '<input type="text" placeholder="192.168.1.2" style="border:0px solid white;"></td>' +
+            '<td style="width:95px;border:1px solid black;padding:4px;text-align:left;">' +
+            '<input type="text" placeholder="Destination-Zone-A" style="border:0px solid white;"></td>' +
+            '<td style="width:81px;border:1px solid black;padding:4px;text-align:left;">' +
+            '<select id="srcopt" style="border:0px solid white;">' +
+            '<option value="IP">IP</option>' +
+            '<option value="Netmask">Netmask</option>' +
+            '<option value="FQDN">FQDN</option>' +
+            '</select></td>' +
+            '<td style="width:129px;border:1px solid black;padding:4px;text-align:left;">' +
+            '<input type="text" placeholder="192.168.1.3" style="border:0px solid white;"></td>' +
+            '<td style="width:81px;border:1px solid black;padding:4px;text-align:left;">' +
+            '<select id="protopt" style="border:0px solid white;">' +
+            '<option value="TCP">TCP</option>' +
+            '<option value="UDP">UDP</option>' +
+            '</select></td>' +
+            '<td style="width:20px;border:1px solid black;padding:4px;text-align:left;">' +
+            '<input type="text" placeholder="8888" style="border:0px solid white;"></td>' +
+            '</tr>' +
+            '</tbody></table>';
+        var mdHTMLFwListRemButton =
+            '<table>' +
+            '<tr><td>' +
+            '<input id="removeRowsWithXBtn" type="text" value="Delete" onclick="removeRowsWithX();"' +
+            ' style="width:60px;border:1px solid black;border-radius:4px;padding:4px;background-color:#FF0000;color:white;text-align:center;"></td>' +
+            '<td>Selected</td></tr>' +
+            '</table>';
+        var mdHTMLFwListTable = '<table id="md_table_2" style="width:830px;margin-bottom:25px;"><tbody>' +
+            '<tr style="background-color:#f3f3f3">' +
+            '<th style="width:30px;border:1px solid black;padding:4px;text-align:left;">Sel</th>' +
+            '<th style="width:165px;border:1px solid black;padding:4px;text-align:left;">Source zone</th>' +
+            '<th style="width:75px;border:1px solid black;padding:4px;text-align:left;">Selected</th>' +
+            '<th style="width:165px;border:1px solid black;padding:4px;text-align:left;">Src. IP/Netmask/FQDN</th>' +
+            '<th style="width:165px;border:1px solid black;padding:4px;text-align:left;">Destination zone</th>' +
+            '<th style="width:75px;border:1px solid black;padding:4px;text-align:left;">Selected</th>' +
+            '<th style="width:165px;border:1px solid black;padding:4px;text-align:left;">Dst. IP/Netmask/FQDN</th>' +
+            '<th style="width:20px;border:1px solid black;padding:4px;text-align:left;">Protocol</th>' +
+            '<th style="width:20px;border:1px solid black;padding:4px;text-align:left;">Port</th>' +
+            '</tr>' +
+            '</tbody></table><button id="submitBtn">Submit</button>';
+        var mdHTML = mdHTMLInpTable + mdHTMLInpTableHeader + mdHTMLInpTableRow + mdHTMLFwListRemButton + mdHTMLFwListTable;
+        mdfwdiv.innerHTML = mdHTML;
+		return mdfwdiv;
+    }
+
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-05 22:13:39</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>4b788da8833022102ec555a6feaad355</sys_id>
+        <sys_mod_count>100</sys_mod_count>
+        <sys_name>mdfirewallmanager</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
+        <sys_update_name>sys_script_client_4b788da8833022102ec555a6feaad355</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-15 14:21:47</sys_updated_on>
+        <table>u_mincident</table>
+        <type>onChange</type>
+        <ui_type>0</ui_type>
+        <view/>
+    </sys_script_client>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="abccompany">a6dad6e5834422102ec555a6feaad362</application>
+        <file_path/>
+        <instance_id>0151daafdbfdb19002d9172913961974</instance_id>
+        <instance_name>dev187924</instance_name>
+        <name>sys_script_client_4b788da8833022102ec555a6feaad355</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="global" table="sys_script_client"&gt;&lt;sys_script_client action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;applies_extended&gt;false&lt;/applies_extended&gt;&lt;condition/&gt;&lt;description&gt;Add / Remove firewall rules to mincident&lt;/description&gt;&lt;field&gt;u_rule_s_to_add_change_remove&lt;/field&gt;&lt;global&gt;true&lt;/global&gt;&lt;isolate_script&gt;false&lt;/isolate_script&gt;&lt;messages/&gt;&lt;name&gt;mdfirewallmanager&lt;/name&gt;&lt;order/&gt;&lt;script&gt;&lt;![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+    if (isLoading || newValue === '') {
+        return;
+    }
+
+    //Type appropriate comment here, and begin script below
+    var mdtable0 = document.getElementById("md_table_0");
+
+    showCustomModal(myCallback, mdtable0);
+}
+
+function myCallback(result) {
+    g_form.setValue('u_rule_data', result);
+    // Reset drop down list
+    var selects = document.getElementById('u_mincident.u_rule_s_to_add_change_remove');
+    selects.selectedIndex = 0;
+}
+
+function showCustomModal(xCallback, sourceTable) {
+    var modal = new GlideModal('custom_modal');
+    modal.setTitle('Enter firewall rules');
+    modal.setWidth(900);
+    // Define the HTML content of pop up
+    var mdfwdiv = getMdfwdiv();
+    // Get table to be extended
+    var targetTable = mdfwdiv.querySelector("table[id='md_table_2']");
+    // If source table already exists add it's content to the target table
+    if (sourceTable) {
+        for (var i = 1; i &lt; sourceTable.rows.length; i++) {
+            var row = sourceTable.rows[i];
+            var clonedRow = row.cloneNode(true);
+            targetTable.appendChild(clonedRow);
+        }
+        // Remove all rows from source table except the header row
+        for (var i = 1; i &lt; sourceTable.rows.length; i++) {
+            sourceTable.rows[i].deleteRow;
+        }
+    }
+
+    modal.renderWithContent(mdfwdiv.innerHTML);
+
+    // Add a click listener to the Submit button to send data back
+    setTimeout(function() {
+        var submitButton = document.getElementById('submitBtn');
+        var table1 = document.getElementById('md_table_1');
+        var table2 = document.getElementById('md_table_2');
+        submitButton.onclick = function() {
+            // Owerride the source table with the pop up result table
+            var mdtmpdiv = document.createElement("div");
+            mdtmpdiv.id = ("mdfwldiv");
+            mdtmpdiv.style.width = "800px";
+            var srcTable = document.createElement("table");
+            srcTable.id = ("md_table_0");
+            mdtmpdiv.appendChild(srcTable);
+            srcTable.innerHTML = table2.innerHTML;
+            var userInput = mdtmpdiv.innerHTML;
+            xCallback(userInput);
+            modal.close();
+        };
+        var addRowButton = document.getElementById("addRowBtn");
+        addRowButton.onclick = function() {
+            // Get the first row
+            var firstRow = table1.rows[2]; // Assuming the first row is at index 2
+            // Get all cells from the first row
+            var table1_cells = firstRow.cells;
+            // Create a new row
+            var newRow = table2.insertRow(-1); // Insert at the end of the table
+            // Insert new cells in the row
+            for (var i = 0; i &lt; 9; i++) {
+                var newCell = newRow.insertCell(i);
+                if (i === 0) {
+                    // Add a checkbox to the first cell
+                    newCell.innerHTML = '&lt;input type="checkbox"&gt;';
+                    newCell.style.border = '1px solid black';
+                    newCell.style.padding = '4px';
+                    newCell.style.textAlign = 'left';
+                } else {
+                    // Check if the cell contains an input element
+                    if (table1_cells[i - 1].querySelector('input')) {
+                        var inputElement = table1_cells[i - 1].querySelector('input');
+                        newCell.innerHTML = inputElement.value;
+                        newCell.style.width = 'width: 100px;';
+                        newCell.style.border = '1px solid black';
+                        newCell.style.padding = '4px';
+                        newCell.style.textAlign = 'left';
+                    } else if (table1_cells[i - 1].querySelector('select')) {
+                        var selectElement = table1_cells[i - 1].querySelector('select');
+                        newCell.innerHTML = selectElement.value;
+                        newCell.style.width = 'width: 70px;';
+                        newCell.style.border = '1px solid black';
+                        newCell.style.padding = '4px';
+                        newCell.style.textAlign = 'left';
+                    } else {
+                        newCell.innerHTML = table1_cells[i - 1].innerHTML;
+                        newCell.style.width = 'width: 100px;';
+                        newCell.style.border = '1px solid black';
+                        newCell.style.padding = '4px';
+                        newCell.style.textAlign = 'left';
+                    }
+                }
+
+            }
+        };
+        var removeRowsWithXButton = document.getElementById("removeRowsWithXBtn");
+        removeRowsWithXButton.onclick = function() {
+            // Loop through the rows in reverse order (to avoid index shifting when removing rows)
+            for (var i = table2.rows.length - 1; i &gt; 0; i--) {
+                var firstCell = table2.rows[i].cells[0];
+                var checkbox = firstCell.querySelector('input[type="checkbox"]');
+                if (checkbox &amp;&amp; checkbox.checked) {
+                    table2.deleteRow(i); // Remove the row if the checkbox is checked
+                }
+            }
+        }
+
+
+    }, 500, sourceTable);
+
+	// Pop up html code
+	//=================
+      function getMdfwdiv() {
+        mdfwdiv = document.createElement("div");
+        mdfwdiv.id = ("mdfwdiv");
+        mdfwdiv.style.width = "800px";
+        var mdHTMLInpTable = '&lt;table id="md_table_1" style="width:800px;margin-bottom:25px;"&gt;&lt;tbody&gt;' +
+            '&lt;tr&gt;' +
+            '&lt;td&gt;' +
+            '&lt;input id="addRowBtn" type="text" value="Add" style="width:60px;border:1px solid black;border-radius:4px;padding:4px;text-align: left;' +
+            ' background-color:#2da44c;color:white;text-align:center;onclick="addRow(this);"&gt;&lt;/td&gt;' +
+            '&lt;/tr&gt;';
+        var mdHTMLInpTableHeader = '&lt;tr style="background-color: #f3f3f3"&gt;' +
+            '&lt;th style="width:95px;border:1px solid black;padding:4px;text-align:left;"&gt;Source zone&lt;/th&gt;' +
+            '&lt;th style="width:80px;border:1px solid black;padding:4px;text-align:left;"&gt;Select&lt;/th&gt;' +
+            '&lt;th style="width:120px;border:1px solid black;padding:4px;text-align:left;"&gt;Src. IP/Netmask/FQDN&lt;/th&gt;' +
+            '&lt;th style="width:95px;border:1px solid black;padding:4px;text-align:left;"&gt;Destination zone&lt;/th&gt;' +
+            '&lt;th style="width:80px;border:1px solid black;padding:4px;text-align:left;"&gt;Select&lt;/th&gt;' +
+            '&lt;th style="width:120px;border:1px solid black;padding:4px;text-align:left;"&gt;Dst. IP/Netmask/FQDN&lt;/th&gt;' +
+            '&lt;th style="width:20px;border:1px solid black;padding:4px;text-align:left;"&gt;Protocol&lt;/th&gt;' +
+            '&lt;th style="width:20px;border:1px solid black;padding:4px;text-align:left;"&gt;Port&lt;/th&gt;' +
+            '&lt;/tr&gt;';
+        var mdHTMLInpTableRow = '&lt;tr&gt;' +
+            '&lt;td style="width:95px;border:1px solid black;padding:4px;text-align:left;"&gt;' +
+            '&lt;input type="text" placeholder="Source-Zone-A" style="border:0px solid white;"&gt;&lt;/td&gt;' +
+            '&lt;td style="width:81px;border:1px solid black;padding:4px;text-align:left;"&gt;' +
+            '&lt;select id="srcopt" style="border:0px solid white;"&gt;' +
+            '&lt;option value="IP"&gt;IP&lt;/option&gt;' +
+            '&lt;option value="Netmask"&gt;Netmask&lt;/option&gt;' +
+            '&lt;option value="FQDN"&gt;FQDN&lt;/option&gt;' +
+            '&lt;/select&gt;&lt;/td&gt;' +
+            '&lt;td style="width:129px;border:1px solid black;padding:4px;text-align:left;"&gt;' +
+            '&lt;input type="text" placeholder="192.168.1.2" style="border:0px solid white;"&gt;&lt;/td&gt;' +
+            '&lt;td style="width:95px;border:1px solid black;padding:4px;text-align:left;"&gt;' +
+            '&lt;input type="text" placeholder="Destination-Zone-A" style="border:0px solid white;"&gt;&lt;/td&gt;' +
+            '&lt;td style="width:81px;border:1px solid black;padding:4px;text-align:left;"&gt;' +
+            '&lt;select id="srcopt" style="border:0px solid white;"&gt;' +
+            '&lt;option value="IP"&gt;IP&lt;/option&gt;' +
+            '&lt;option value="Netmask"&gt;Netmask&lt;/option&gt;' +
+            '&lt;option value="FQDN"&gt;FQDN&lt;/option&gt;' +
+            '&lt;/select&gt;&lt;/td&gt;' +
+            '&lt;td style="width:129px;border:1px solid black;padding:4px;text-align:left;"&gt;' +
+            '&lt;input type="text" placeholder="192.168.1.3" style="border:0px solid white;"&gt;&lt;/td&gt;' +
+            '&lt;td style="width:81px;border:1px solid black;padding:4px;text-align:left;"&gt;' +
+            '&lt;select id="protopt" style="border:0px solid white;"&gt;' +
+            '&lt;option value="TCP"&gt;TCP&lt;/option&gt;' +
+            '&lt;option value="UDP"&gt;UDP&lt;/option&gt;' +
+            '&lt;/select&gt;&lt;/td&gt;' +
+            '&lt;td style="width:20px;border:1px solid black;padding:4px;text-align:left;"&gt;' +
+            '&lt;input type="text" placeholder="8888" style="border:0px solid white;"&gt;&lt;/td&gt;' +
+            '&lt;/tr&gt;' +
+            '&lt;/tbody&gt;&lt;/table&gt;';
+        var mdHTMLFwListRemButton =
+            '&lt;table&gt;' +
+            '&lt;tr&gt;&lt;td&gt;' +
+            '&lt;input id="removeRowsWithXBtn" type="text" value="Delete" onclick="removeRowsWithX();"' +
+            ' style="width:60px;border:1px solid black;border-radius:4px;padding:4px;background-color:#FF0000;color:white;text-align:center;"&gt;&lt;/td&gt;' +
+            '&lt;td&gt;Selected&lt;/td&gt;&lt;/tr&gt;' +
+            '&lt;/table&gt;';
+        var mdHTMLFwListTable = '&lt;table id="md_table_2" style="width:830px;margin-bottom:25px;"&gt;&lt;tbody&gt;' +
+            '&lt;tr style="background-color:#f3f3f3"&gt;' +
+            '&lt;th style="width:30px;border:1px solid black;padding:4px;text-align:left;"&gt;Sel&lt;/th&gt;' +
+            '&lt;th style="width:165px;border:1px solid black;padding:4px;text-align:left;"&gt;Source zone&lt;/th&gt;' +
+            '&lt;th style="width:75px;border:1px solid black;padding:4px;text-align:left;"&gt;Selected&lt;/th&gt;' +
+            '&lt;th style="width:165px;border:1px solid black;padding:4px;text-align:left;"&gt;Src. IP/Netmask/FQDN&lt;/th&gt;' +
+            '&lt;th style="width:165px;border:1px solid black;padding:4px;text-align:left;"&gt;Destination zone&lt;/th&gt;' +
+            '&lt;th style="width:75px;border:1px solid black;padding:4px;text-align:left;"&gt;Selected&lt;/th&gt;' +
+            '&lt;th style="width:165px;border:1px solid black;padding:4px;text-align:left;"&gt;Dst. IP/Netmask/FQDN&lt;/th&gt;' +
+            '&lt;th style="width:20px;border:1px solid black;padding:4px;text-align:left;"&gt;Protocol&lt;/th&gt;' +
+            '&lt;th style="width:20px;border:1px solid black;padding:4px;text-align:left;"&gt;Port&lt;/th&gt;' +
+            '&lt;/tr&gt;' +
+            '&lt;/tbody&gt;&lt;/table&gt;&lt;button id="submitBtn"&gt;Submit&lt;/button&gt;';
+        var mdHTML = mdHTMLInpTable + mdHTMLInpTableHeader + mdHTMLInpTableRow + mdHTMLFwListRemButton + mdHTMLFwListTable;
+        mdfwdiv.innerHTML = mdHTML;
+		return mdfwdiv;
+    }
+
+}]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_client&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-04-05 22:13:39&lt;/sys_created_on&gt;&lt;sys_domain&gt;global&lt;/sys_domain&gt;&lt;sys_domain_path&gt;/&lt;/sys_domain_path&gt;&lt;sys_id&gt;4b788da8833022102ec555a6feaad355&lt;/sys_id&gt;&lt;sys_mod_count&gt;100&lt;/sys_mod_count&gt;&lt;sys_name&gt;mdfirewallmanager&lt;/sys_name&gt;&lt;sys_overrides/&gt;&lt;sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362"&gt;a6dad6e5834422102ec555a6feaad362&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="abccompany"&gt;a6dad6e5834422102ec555a6feaad362&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_client_4b788da8833022102ec555a6feaad355&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-04-15 14:21:47&lt;/sys_updated_on&gt;&lt;table&gt;u_mincident&lt;/table&gt;&lt;type&gt;onChange&lt;/type&gt;&lt;ui_type&gt;0&lt;/ui_type&gt;&lt;view/&gt;&lt;/sys_script_client&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>329819563</payload_hash>
+        <record_name>mdfirewallmanager</record_name>
+        <reverted_from/>
+        <source>5f942ebb838022102ec555a6feaad333</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-15 14:21:47</sys_created_on>
+        <sys_id>5f0d7227833422102ec555a6feaad305</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19639d3dac10000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-15 14:21:47</sys_updated_on>
+        <type>Client Script</type>
+        <update_guid>930d7227b4342210122e3ce2dc9f0a05</update_guid>
+        <update_guid_history>930d7227b4342210122e3ce2dc9f0a05:329819563,17109f8eb834a210ab882d63936e8e2c:823435314,61af4bcaff34a21011bc3a9d135c79c4:134303363,ed5d0bcac634a2106d51554dc60827a6:1610382339,8a9c43ca1434a210e0fdcd1a4ec6998f:-1633027411,df4c43ca0634a2101450f4bf4d1b3547:-910537022,d52a87865034a2105904137c09e30a8b:1716921300,b9488786cc34a2102b7294926f5b9c82:930371533,0817cf06ef34a210e978de061f86ee4b:-1824667883,a0068b8e17f0a2101398345a5643d413:-651581393,fa038302bf34a2106e45f22b82078288:1806946157,a4a1438aacf0a210d10e5df4da10eed3:-902798220,de3ebac66af0a210a45290c5885e4405:-1425860395,199bf6c6aaf0a21000dbb4f0b3046a15:547595922,ec4af68222f0a210d7f3c5d0ceedea9f:1228949890,f276768ae7b0a210a129527bc12e4d87:1560943661,e6e13e8a60b0a210ccbd76793bf3fce8:1173390362,57707ac2a6b0a210590283a36300d522:1266530210,3dcda2c698b0a210461537aa67e72bd1:1939685639,d1db2ac2bdb0a210e283e9226ae80daf:1459941767,b956e28aaa70a210da935e1265f7cb67:913499944,3182ee86fd70a210c6a03a8574acb153:-1619477985,4bbf9e426c70a210f571657cee53d23e:-1808252193,27dd5ece9b30a210b6c15afb2f8ca454:-153333017,faab5e42c770a2104a743819a06da7db:1021464928,ae5952ce8330a210bf90045e91a68782:-1213496180,4d88528e1430a210cad44c51b4d77e54:-1217996266,910612c69e30a210f527b44ae2f7e0f1:-606091413,4fb0de06df30a210ffcc73aa9cf0fe6e:821281758,25da4a4a9ebc62106de49349ea03ba61:2124700025,c7fbfd06547c62109fb9906391a06e65:517580539,551b9d02f63c62108adad84737f8b403:-2094609147,4244eb6172702210be416be3b503a8e6:1811873568,a66a2301d5b0e21023f6ce7d5bbfcf42:1388622594,ffe9af8db870e210a70e847152fd57ac:-1072450246,0c19af8d9370e210593586d70ee3daa4:-1117282468,7578ab090570e210c38369ac42b37f2a:1128639947,e0182789ed70e210bca76e55cfd02e92:-1323209181,0e372b892f70e210b928717ed130e476:1522121522,63b6230dc770e210601b45bd73566de3:430795864,15656b09a570e210c09f12218d1189b3:614769287,5b9423053470e21019caa9700a176c02:1645161501,c8d3e3858670e210008d5d486a2a75c8:-1509739767,88e2a3850070e2107a42caa27bc4746a:212736679,b6c1a3856a70e210e782b9b1ad305d64:-1613626874,8c912b051570e210d69348fc4100ad99:-1355632649,d3eb1f8ded30e21049ace87354c0ed0f:-1200603398,620b938dc730e21021ccdb47d7f2b0d0:933510874,5e2257c1d830e210e74667cc1f7f2a6b:1642313901,69c11b011830e210002c5525a66df3a7:142021544,60801b019730e2103ca25efd3fd1d6d5:382305467,727fc7011430e2100efceb8bf7de57b1:-433922214,9f2fc34d82fca210339342605befb862:506271812,3f3e4b81cffca2109d17c9014c5cf51d:1174380367,ed4c8b0d4bfca210cad747257a8a32f6:-2059067989,c93cc3497bfca21094a049d41953cccd:686141467,ed5903496bfca2106f6cb2a715009860:101537128,b083878110fca2105cfe6e81d8edd1a6:-1944888603,aa718b4d28bca2101cf0403c9a54d526:-867006746,21ffb64d5bbca210519fd29afd8940d7:-1197997448,cbfdbec923bca2108d8f57730fcff46e:-1022846210,f4cdb2490fbca2100dc10720dd40c49a:654507343,f94dfe89a1bca2105bb3f5f2750566dd:-294518610,911df2497cbca210c6a155abca962604:511385450,287bfa09a7bca21092662eae792741c2:995105894,c0dafec58cbca21063c2cd392a048b6c:-23779561,e36af6c5d9bca21082ce03608929caa5:2037524531,a6e9fa4599bca21036f6eca304743c4e:-310909241,ecf8ba4521bca2108387a7bc1bdab4cb:-809329448,5d12b60df67ca2100cccb4db4980b889:-993024218,1d96aa341cb862102c7a8312648b831d:-1941479502,30756e3027b862100b1b6a03cba6f297:681635561,f64262b81c7862108a806b8fd6b709b2:-1503035893,dc8c1638ac786210464082451b85e7ec:1513801325,239bde38d87862104faff374b0907042:-785282350,3e9adaf41b786210d0856b28b0eb11ab:1382094212,e319de3415786210ae14c20d85d7a070:-84016692,db38de340b7862104da18cef03d38b69:1065629253,63371eb03a78621047ae434109289d01:-1437301247,0e179eb088786210c8825c3cd9ef1fac:-1684103766,b2561230b8786210d842d74e5e40fea5:-325685342,c51696b030786210808d11d741a58344:-541348454,96b5defc7c38621076e1c19f77e1ae7b:-977218750,60859a700a78621003587c7acae744ef:1651585332,80041af8433862100777fb4cd3510524:-2074902844,ee405674f138621072d754b6ab19d29d:-647626905,3aae11b0707462108a7cadea9d6c8661:-2144887373,721c11fcf8346210010ca43065e6a388:599685922,3f6637289e7c2210a2b85d008ec52ab6:-1077635686,8695f728087c2210a2172ea64045b184:321874968,0365f720bd7c22105a6910ae39249e3c:-310712153,fa94f3e4f07c22106c872a9718bda719:692531870,990ea3ecf03c22100efe674928f6c18a:-1353977734,53bd2fac1a3c2210144e309179f5894d:-1185047982,5b6de3e4c53c221072c7bf7b02e74234:1267259158,340de7286f3c22109388d7bad2442072:3382364,c2e6e7a4263c2210b8893df403bc9621:-1553272282,72b3a3e0123c22108d70482f3d242fd8:1138098734,cb5199a40a7022102a819c06dd73151c:-1754553509,7d4119a45c702210ed7df3d78e9c681a:1000990171,462909e849302210d77d7019719a4b35:1268400190</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-15 17:28:42</sys_created_on>
+        <sys_db_object display_value="" name="sys_script_client">sys_script_client</sys_db_object>
+        <sys_id>0115dd9dee73479a80b32cba981ea081</sys_id>
+        <sys_metadata>4b788da8833022102ec555a6feaad355</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>mdfirewallmanager</sys_name>
+        <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
+        <sys_parent display_value="mincident">d2559e42831422102ec555a6feaad3e2</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
+        <sys_scope_delete display_value="">10b6b3dc0ed6473c813abb45191b0f90</sys_scope_delete>
+        <sys_update_name>sys_script_client_4b788da8833022102ec555a6feaad355</sys_update_name>
+        <sys_update_version display_value="sys_script_client_4b788da8833022102ec555a6feaad355">5f0d7227833422102ec555a6feaad305</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-15 17:28:42</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

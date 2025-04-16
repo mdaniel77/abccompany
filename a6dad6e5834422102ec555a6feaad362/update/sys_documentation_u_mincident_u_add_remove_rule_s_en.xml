@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update>
-    <sys_documentation element="u_select_a_region" label="Select environment:" language="en" table="u_mincident">
+    <sys_documentation element="u_add_remove_rule_s" label="Add/Remove Rule(s)" language="en" table="u_mincident">
         <sys_documentation action="INSERT_OR_UPDATE">
-            <element>u_select_a_region</element>
+            <element>u_add_remove_rule_s</element>
             <help/>
             <hint/>
-            <label>Select environment:</label>
+            <label>Add/Remove Rule(s)</label>
             <language>en</language>
             <name>u_mincident</name>
-            <plural/>
+            <plural>Add/Remove Rule(s)</plural>
             <sys_class_name>sys_documentation</sys_class_name>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-03-16 23:13:42</sys_created_on>
-            <sys_mod_count>9</sys_mod_count>
-            <sys_name>Select environment:</sys_name>
+            <sys_created_on>2025-04-15 17:34:51</sys_created_on>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Add/Remove Rule(s)</sys_name>
             <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
             <sys_policy/>
             <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
-            <sys_update_name>sys_documentation_u_mincident_u_select_a_region_en</sys_update_name>
+            <sys_update_name>sys_documentation_u_mincident_u_add_remove_rule_s_en</sys_update_name>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-04-15 14:25:15</sys_updated_on>
+            <sys_updated_on>2025-04-15 17:34:51</sys_updated_on>
             <url/>
             <url_target/>
         </sys_documentation>

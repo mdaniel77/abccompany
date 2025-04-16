@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update>
-    <sys_dictionary action="INSERT_OR_UPDATE" element="u_select_any_location" table="u_mincident">
+    <sys_dictionary action="INSERT_OR_UPDATE" element="u_add_remove_rule_s" table="u_mincident">
         <active>true</active>
         <array>false</array>
         <attributes/>
         <audit>false</audit>
-        <calculation/>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
         <choice>3</choice>
         <choice_field/>
         <choice_table/>
-        <column_label>Select location:</column_label>
+        <column_label>Add/Remove Rule(s)</column_label>
         <comments/>
         <create_roles/>
-        <default_value>AFG</default_value>
+        <default_value/>
         <defaultsort/>
         <delete_roles/>
-        <dependent>u_select_a_region</dependent>
-        <dependent_on_field>u_select_a_region</dependent_on_field>
+        <dependent/>
+        <dependent_on_field/>
         <display>false</display>
         <dynamic_creation>false</dynamic_creation>
         <dynamic_creation_script/>
         <dynamic_default_value/>
         <dynamic_ref_qual/>
-        <element>u_select_any_location</element>
+        <element>u_add_remove_rule_s</element>
         <element_reference>false</element_reference>
         <foreign_database/>
         <formula/>
@@ -46,18 +51,18 @@
         <staged>false</staged>
         <sys_class_name>sys_dictionary</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2025-03-16 23:13:42</sys_created_on>
-        <sys_name>Select location:</sys_name>
+        <sys_created_on>2025-04-15 17:34:51</sys_created_on>
+        <sys_name>Add/Remove Rule(s)</sys_name>
         <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
         <sys_policy/>
         <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
-        <sys_update_name>sys_dictionary_u_mincident_u_select_any_location</sys_update_name>
+        <sys_update_name>sys_dictionary_u_mincident_u_add_remove_rule_s</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-04-15 14:33:29</sys_updated_on>
+        <sys_updated_on>2025-04-15 17:34:51</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>
-        <use_dependent_field>true</use_dependent_field>
+        <use_dependent_field>false</use_dependent_field>
         <use_dynamic_default>false</use_dynamic_default>
         <use_reference_qualifier>simple</use_reference_qualifier>
         <virtual>false</virtual>
