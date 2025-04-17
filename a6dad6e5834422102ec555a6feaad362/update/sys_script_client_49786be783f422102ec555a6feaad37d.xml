@@ -109,7 +109,6 @@ function showCustomModal(xCallback, sourceTable) {
                         newCell.style.textAlign = 'left';
                     }
                 }
-
             }
         };
         var removeRowsWithXButton = document.getElementById("removeRowsWithXBtn");
@@ -122,8 +121,83 @@ function showCustomModal(xCallback, sourceTable) {
                     table2.deleteRow(i); // Remove the row if the checkbox is checked
                 }
             }
-        }
+        };
+        // Validate source zone
+        var srcZoneValidator = document.getElementById("srcZone");
+        srcZoneValidator.onblur = function() {
+            var zoneNameInput = document.getElementById("srcZone");
+            var zoneName = zoneNameInput.value;
+            var regex = /^([A-Za-z0-9\s])+(,[A-Za-z0-9\s]+)*$/;
+            if (!regex.test(zoneName)) {
+                zoneNameInput.setCustomValidity(
+                    'Invalid zone name format. Zone names must be comma-separated and must not contain "." characters.'
+                );
+                zoneNameInput.reportValidity();
+            } else {
+                zoneNameInput.setCustomValidity("");
+            }
+        };
+        // Validate destination zone
+        var dstZoneValidator = document.getElementById("dstZone");
+        dstZoneValidator.onblur = function() {
+            var zoneNameInput = document.getElementById("dstZone");
+            var zoneName = zoneNameInput.value;
+            var regex = /^([A-Za-z0-9\s])+(,[A-Za-z0-9\s]+)*$/;
+            if (!regex.test(zoneName)) {
+                zoneNameInput.setCustomValidity(
+                    'Invalid zone name format. Zone names must be comma-separated and must not contain "." characters.'
+                );
+                zoneNameInput.reportValidity();
+            } else {
+                zoneNameInput.setCustomValidity("");
+            }
+        };
+        // Validate src IP address
+        var srcIMF = "srcIpMaskFqdn";
+        var validateSrcIpMaskFqdn = document.getElementById(srcIMF);
+        validateSrcIpMaskFqdn.onblur = function(srcIMF) {
+            var ipAddrInput = document.getElementById(srcIMF);
+            var ipAddr = ipAddrInput.value;
+            var regex =
+                /^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(-\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})?)(,\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(-\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})?)*$/;
 
+            // var isValid = ipAddr.split(",").every((ip) => {
+            //   var trimmedIp = ip.trim();
+            //   var parts = trimmedIp.split(".").map(Number);
+            //   return (
+            //     parts.length === 4 &&
+            //     parts.every((part) => part >= 0 && part <= 255)
+            //   );
+            // });
+
+            var result;
+            // if (!regex.test(ipAddr || !isValid)) {
+            if (!regex.test(ipAddr)) {
+                ipAddrInput.setCustomValidity(
+                    "Invalid IP address format. Enter valid IPv4 addresses separated by commas."
+                );
+                ipAddrInput.reportValidity();
+                result = false;
+            } else {
+                ipAddrInput.setCustomValidity("");
+                result = true;
+            }
+            return result;
+        };
+        // Validate portnumber
+        var portnumberValidator = document.getElementById("portnumber");
+        portnumberValidator.onblur = function() {
+            var portNumberInput = document.getElementById("portnumber");
+            var portNumber = parseInt(portNumberInput.value, 10);
+            if (isNaN(portNumber) || portNumber < 1 || portNumber > 65535) {
+                portNumberInput.setCustomValidity(
+                    "Invalid port number. Enter an integer between 0 and 65535."
+                );
+                portNumberInput.reportValidity();
+            } else {
+                portNumberInput.setCustomValidity("");
+            }
+        };
 
     }, 500, sourceTable);
 
@@ -147,11 +221,11 @@ function showCustomModal(xCallback, sourceTable) {
             '<th style="width:70px;border:1px solid black;padding:4px;text-align:left;">Select</th>' +
             '<th style="width:125px;border:1px solid black;padding:4px;text-align:left;">Dst. IP/Netmask/FQDN</th>' +
             '<th style="width:20px;border:1px solid black;padding:4px;text-align:left;">Protocol</th>' +
-            '<th style="width:40px;border:1px solid black;padding:4px;text-align:left;">Port</th>' +
+            '<th style="width:60px;border:1px solid black;padding:4px;text-align:left;">Port</th>' +
             '</tr>';
         var mdHTMLInpTableRow = '<tr>' +
             '<td style="width:125px;border:1px solid black;padding:4px;text-align:left;">' +
-            '<input type="text" placeholder="Source-Zone-A" style="width:125px;border:0px solid white;"></td>' +
+            '<input type="text" id="srcZone" name="srcZone" placeholder="Source-Zone-A" style="width:125px;border:0px solid white;"></td>' +
             '<td style="width:70px;border:1px solid black;padding:4px;text-align:left;">' +
             '<select id="srcopt" style="width:70px;border:0px solid white;">' +
             '<option value="IP">IP</option>' +
@@ -159,9 +233,9 @@ function showCustomModal(xCallback, sourceTable) {
             '<option value="FQDN">FQDN</option>' +
             '</select></td>' +
             '<td style="width:129px;border:1px solid black;padding:4px;text-align:left;">' +
-            '<input type="text" placeholder="192.168.1.2" style="width:129px;border:0px solid white;"></td>' +
+            '<input type="text" id="srcIpMaskFqdn" name="srcIpMaskFqdn" placeholder="192.168.1.2" style="width:129px;border:0px solid white;"></td>' +
             '<td style="width:125px;border:1px solid black;padding:4px;text-align:left;">' +
-            '<input type="text" placeholder="Destination-Zone-A" style="width:125px;border:0px solid white;"></td>' +
+            '<input type="text" id="dstZone" id="dstZone" placeholder="Destination-Zone-A" style="width:125px;border:0px solid white;"></td>' +
             '<td style="width:70px;border:1px solid black;padding:4px;text-align:left;">' +
             '<select id="srcopt" style="width:70px;border:0px solid white;">' +
             '<option value="IP">IP</option>' +
@@ -169,14 +243,14 @@ function showCustomModal(xCallback, sourceTable) {
             '<option value="FQDN">FQDN</option>' +
             '</select></td>' +
             '<td style="width:129px;border:1px solid black;padding:4px;text-align:left;">' +
-            '<input type="text" placeholder="192.168.1.3" style="width:129px;border:0px solid white;"></td>' +
+            '<input type="text" id="dstIpMaskFqdn" name="dstIpMaskFqdn" placeholder="192.168.1.3" style="width:129px;border:0px solid white;"></td>' +
             '<td style="width:70px;border:1px solid black;padding:4px;text-align:left;">' +
             '<select id="protopt" style="width:70px;border:0px solid white;">' +
             '<option value="TCP">TCP</option>' +
             '<option value="UDP">UDP</option>' +
             '</select></td>' +
-            '<td style="width:40px;border:1px solid black;padding:4px;text-align:left;">' +
-            '<input type="number" placeholder="8888" id="portnumber" name="portnumber" onblur="validatePortNumber()" style="width:40px;border:0px solid white;"></td>' +
+            '<td style="width:60px;border:1px solid black;padding:4px;text-align:left;">' +
+            '<input type="number" placeholder="8888" id="portnumber" name="portnumber" style="width:60px;border:0px solid white;"></td>' +
             '</tr>' +
             '</tbody></table>';
         var mdHTMLFwListRemButton =
@@ -206,58 +280,13 @@ function showCustomModal(xCallback, sourceTable) {
         return mdfwdiv;
     }
 
-    function validateZoneName() {
-        var zoneNameInput = document.getElementById("zonename");
-        var zoneName = zoneNameInput.value;
-        var regex = /^([A-Za-z0-9\s])+(,[A-Za-z0-9\s]+)*$/;
-
-        if (!regex.test(zoneName)) {
-            zoneNameInput.setCustomValidity(
-                'Invalid zone name format. Zone names must be comma-separated and must not contain "." characters.'
-            );
-            zoneNameInput.reportValidity();
-        } else {
-            zoneNameInput.setCustomValidity("");
-        }
-    }
-    // Function to validate IP address format
-    function validateIpAddr(pipaddr) {
-        var ipAddrInput = document.getElementById(pipaddr);
-        var ipAddr = ipAddrInput.value;
-        const regex =
-            /^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(-\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})?)(,\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(-\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})?)*$/;
-
-        // var isValid = ipAddr.split(",").every((ip) => {
-        //   var trimmedIp = ip.trim();
-        //   var parts = trimmedIp.split(".").map(Number);
-        //   return (
-        //     parts.length === 4 &&
-        //     parts.every((part) => part >= 0 && part <= 255)
-        //   );
-        // });
-
-        var result;
-        // if (!regex.test(ipAddr || !isValid)) {
-        if (!regex.test(ipAddr)) {
-            ipAddrInput.setCustomValidity(
-                "Invalid IP address format. Enter valid IPv4 addresses separated by commas."
-            );
-            ipAddrInput.reportValidity();
-            result = false;
-        } else {
-            ipAddrInput.setCustomValidity("");
-            result = true;
-        }
-        return result;
-    }
-
     // Function to validate netmask format
     function validateNetmask() {
         var netmaskInput = document.getElementById("netmask");
         var netmask = netmaskInput.value;
 
         // Regular expression to validate CIDR notation (e.g., 192.168.1.1/21)
-        const regex =
+        var regex =
             /^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\/([0-9]|[1-2][0-9]|3[0-2])$/;
 
         if (!regex.test(netmask) && !validateIpAddr("netmask")) {
@@ -289,28 +318,13 @@ function showCustomModal(xCallback, sourceTable) {
         // }
     }
 
-    // Function to validate port number format, number should be between 1 and 65535
-    function validatePortNumber() {
-        const portNumberInput = document.getElementById("portnumber");
-        const portNumber = parseInt(portNumberInput.value, 10);
-
-        if (isNaN(portNumber) || portNumber < 1 || portNumber > 65535) {
-            portNumberInput.setCustomValidity(
-                "Invalid port number. Enter an integer between 0 and 65535."
-            );
-            portNumberInput.reportValidity();
-        } else {
-            portNumberInput.setCustomValidity("");
-        }
-    }
-
     // Function to validate FQDN format
     function validateFQDM() {
-        const domainInput = document.getElementById("fqdn");
-        const domainValue = domainInput.value;
+        var domainInput = document.getElementById("fqdn");
+        var domainValue = domainInput.value;
 
         // Regular expression to validate domain names
-        const regex =
+        var regex =
             /^([a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,})(,\s*[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,})*$/;
 
         if (!regex.test(domainValue)) {
@@ -332,7 +346,7 @@ function showCustomModal(xCallback, sourceTable) {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>49786be783f422102ec555a6feaad37d</sys_id>
-        <sys_mod_count>11</sys_mod_count>
+        <sys_mod_count>21</sys_mod_count>
         <sys_name>mdu_add_remove_rule_s</sys_name>
         <sys_overrides/>
         <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
@@ -340,7 +354,7 @@ function showCustomModal(xCallback, sourceTable) {
         <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
         <sys_update_name>sys_script_client_49786be783f422102ec555a6feaad37d</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-04-16 23:06:10</sys_updated_on>
+        <sys_updated_on>2025-04-17 22:50:27</sys_updated_on>
         <table>u_mincident</table>
         <type>onChange</type>
         <ui_type>0</ui_type>
