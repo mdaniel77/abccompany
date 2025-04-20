@@ -154,6 +154,7 @@ function showCustomModal(xCallback, sourceTable) {
         var errMsgIp = "Invalid IP address format. Enter valid IPv4 addresses separated by commas.";
 		var errMsgFqdn = "Invalid domain name format. Enter valid domain names separated by commas.";
         var validateSrcIpMaskFqdn = document.getElementById("srcIpMaskFqdn");
+        var validateDstIpMaskFqdn = document.getElementById("dstIpMaskFqdn");
         validateSrcIpMaskFqdn.onblur = function() {
             var selectedSrcOption = document.getElementById("srcOpt").value;
             console.log(selectedSrcOption);
@@ -187,6 +188,40 @@ function showCustomModal(xCallback, sourceTable) {
                     ;
             }
         };
+        validateDstIpMaskFqdn.onblur = function(xOpt, xIpMaskFqdn) {
+            var selectedSrcOption = document.getElementById("dstOpt").value;
+            console.log(selectedSrcOption);
+            switch (selectedSrcOption) {
+                case "IP":
+                    var ipAddrInput = document.getElementById("dstIpMaskFqdn");
+                    var ipAddr = ipAddrInput.value;
+                    var result;
+                    if (!regexIp.test(ipAddr)) {
+                        ipAddrInput.setCustomValidity(errMsgIp);
+                        ipAddrInput.reportValidity();
+                        result = false;
+                    } else {
+                        ipAddrInput.setCustomValidity("");
+                        result = true;
+                    }
+                    return result;
+                case "Netmask":
+                    break;
+                case "FQDN":
+                    var domainInput = document.getElementById("dstIpMaskFqdn");
+                    var domainValue = domainInput.value;
+                    if (!regexFqdn.test(domainValue)) {
+                        domainInput.setCustomValidity(errMsgFqdn);
+                        domainInput.reportValidity();
+                    } else {
+                        domainInput.setCustomValidity("");
+                    }
+                    break;
+                default:
+                    ;
+            }
+        };
+
         // Validate portnumber
         var portnumberValidator = document.getElementById("portnumber");
         portnumberValidator.onblur = function() {
@@ -329,7 +364,7 @@ function showCustomModal(xCallback, sourceTable) {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>49786be783f422102ec555a6feaad37d</sys_id>
-        <sys_mod_count>31</sys_mod_count>
+        <sys_mod_count>33</sys_mod_count>
         <sys_name>mdu_add_remove_rule_s</sys_name>
         <sys_overrides/>
         <sys_package display_value="abccompany" source="a6dad6e5834422102ec555a6feaad362">a6dad6e5834422102ec555a6feaad362</sys_package>
@@ -337,7 +372,7 @@ function showCustomModal(xCallback, sourceTable) {
         <sys_scope display_value="abccompany">a6dad6e5834422102ec555a6feaad362</sys_scope>
         <sys_update_name>sys_script_client_49786be783f422102ec555a6feaad37d</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-04-18 23:42:39</sys_updated_on>
+        <sys_updated_on>2025-04-20 23:06:34</sys_updated_on>
         <table>u_mincident</table>
         <type>onChange</type>
         <ui_type>0</ui_type>
